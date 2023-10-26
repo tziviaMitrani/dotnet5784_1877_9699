@@ -2,7 +2,7 @@
 
 namespace Stage0
 {
-    class Program
+    class Program9699
     {
         static void Main(string[] args)
         {
