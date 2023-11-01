@@ -25,7 +25,7 @@ public record Student
     public DateTime Date => DateTime.Now; //get only
 }
 
-namespace DO;
+
 /// <summary>
 /// Course Entity
 /// </summary>
