@@ -1,19 +1,8 @@
 ﻿namespace DO;
 
-public enum Year
+enum EngineerExperience
 {
-    FirstYear,
-    SecondYear,
-    ThirdYear,
-    ExtraYear
-}
-
-
-public enum SemesterNames
-{
-    WinterA,
-    SpringB,
-    Year,
-    Summer,
-    Elul
+    Expert,
+    Junior,
+    Novice
 }
