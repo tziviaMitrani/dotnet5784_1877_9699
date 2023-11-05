@@ -28,9 +28,9 @@ public record Task
         DateTime StartDate,
         DateTime EstimatedCompletionDate,
         DateTime FinalDateCompletion,
-        DateTime ActualEndDate,
-        string product,
-        string Notes,
+        DateTime? ActualEndDate,
+        string? product,
+        string? Notes,
         int Engineerid,
         EngineerExperience Difficulty
 );

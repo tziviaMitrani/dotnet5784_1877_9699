@@ -1,7 +1,8 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-
+using System;
+using System.Data.Common;
 
 public static class Initialization
 {
@@ -84,32 +85,50 @@ public static class Initialization
 
      private static void createTask()
         {
-            string[] Aliases = { "a", "b", "c", "d", "e" };
-            string[] Remarks = { "a", "b", "c", "d", "e" };
-            string[] Deliverables = { "r", "a", "c", "e", "l" };
-
+        List<Engineer> Engineers = s_dalEngineer!.ReadAll();
         for (int i = 0; i < 100; i++)
             {
-                int indexA = s_rand.Next(0, 4);
-                int indexD = s_rand.Next(0, 4);
-                string _Description = ((Urgency)indexD).ToString();
-                string _Alias = Aliases[indexA];
-                bool _Milestone = false;
-                DateTime _CreatedAt = RandomDate(new DateTime(2000, 1, 1), DateTime.Today);
-                DateTime _Start = RandomDate(_CreatedAt, DateTime.Today);
-                DateTime _ForecasDate = _Start.AddDays(((indexD * 365).Days);
-                DateTime _Deadline = ForecasDate.AddDays((365 / 2).Days);
-                DateTime _Complete = RandomDate(_ForecasDate, _Deadline);
-                int indexEI = s_rand.Next(0, 40);
-                //int _EngineerId = DataList.DataSource.Engineers[indexEI].Id;
-                EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 2);
-                int indexR = s_rand.Next(0, 4);
-                int indexDe = s_rand.Next(0, 4);
-                string _Remarks = Remarks[indexR];
-                string _Deliverables = Deliverables[indexDe];
-                Task newTask = new(_Description, _Alias, _Milestone, _CreatedAt, _Start, _ForecasDate, _Deadline, _Complete, _Deliverables, _Remarks, _EngineerId, _level);
-                s_dalTask!.Create(newTask);
-
-            }
+            int index = s_rand.Next(0, 4);
+            string _Description = ((Urgency)index).ToString();
+            bool _Milestone = false;
+            Random rnd = new Random();
+            int day = rnd.Next(1, 31);
+            int month = rnd.Next(1, 13);
+            int year = rnd.Next(2000,2024);
+            DateTime _ProductionDate =new DateTime(year, month, day);
+            int p = _ProductionDate.Day;
+            int now = DateTime.Now.Day;
+            int startInDay = rnd.Next(p, now+1);
+            DateTime _StartDate = DateTime.Parse(startInDay.ToString());
+            DateTime _EstimatedCompletionDate = DateTime.Parse((now + 30 * index).ToString());
+            DateTime _FinalDateCompletion = DateTime.Parse((_EstimatedCompletionDate.Day+20).ToString());
+            int _IdRandom = rnd.Next(0, 40);
+            int _EngineerId = Engineers[_IdRandom].Id;
+            EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 2);
+            Task newTask = new(0,_Description, null, _Milestone, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion,null, null, null, _EngineerId, _level);
+            s_dalTask!.Create(newTask);
         }
+     }
+
+    private static void createDependency()
+    {
+        for (int i = 0; i < 250; i++)
+        {
+            Random rnd = new Random();
+            int _IdDependTask = rnd.Next(1, 101);
+            int _IdPreviousDependTask = rnd.Next(1, _IdDependTask);
+            Dependency newDependency = new(0, _IdDependTask, _IdPreviousDependTask);
+            s_dalDependency!.Create(newDependency);
+        }
+    }
+
+    public static void Do(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency)
+    {
+        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        createDependency();
+        createEngineer();
+        createTask();
+    }
 }
