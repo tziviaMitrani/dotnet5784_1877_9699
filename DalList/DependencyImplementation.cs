@@ -1,12 +1,38 @@
-﻿using System;
+﻿namespace Dal;
+using DalApi;
+using DO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Dal
+public class DependencyImplementation : IDependency
 {
-    internal class DependencyImplementation
+    public int Create(Dependency item)
     {
+        if (Read(item.Id) is not null)
+            throw new Exception($"Dependency with such an ID={item.Id} already exists");
+        DataSource.Dependencys.Add(item);
+        return item.Id;
+    }
+
+    public void Delete(int id)
+    {
+        Dependency? Dependency = Read(id) ?? throw new Exception($"Dependency with such an ID={id} does not exist");
+        DataSource.Dependencys.Remove(Dependency);
+    }
+
+    public Dependency? Read(int id)
+    {
+        Dependency? result = DataSource.Dependencys.Find(Dependency => Dependency.Id == id);
+        return result;
+    }
+
+    public List<Dependency> ReadAll()
+    {
+        return new List<Dependency>(DataSource.Dependencys);
+    }
+
+    public void Update(Dependency item)
+    {
+        Delete(item.Id);
+        DataSource.Dependencys.Add(item);
     }
 }

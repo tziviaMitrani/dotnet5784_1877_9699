@@ -6,6 +6,8 @@
 /// <param name="IdDependTask">ID number of pending task</param>
 /// <param name="IdPreviousDependTask">ID number of a previous assignment</param>
 
+
+
 public record Dependency
 (   
     int Id,
