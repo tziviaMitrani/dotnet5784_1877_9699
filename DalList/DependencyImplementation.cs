@@ -35,4 +35,8 @@ public class DependencyImplementation : IDependency
         Delete(item.Id);
         DataSource.Dependencys.Add(item);
     }
+    public void Show(Dependency item)
+    {
+        Console.WriteLine($"ID: {0}, ID of depend task: {1}, ID of previous task: {2}\n", item.Id, item.IdDependTask,item.IdPreviousDependTask);
+    }
 }
