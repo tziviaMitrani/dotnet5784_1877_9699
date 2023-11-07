@@ -24,15 +24,15 @@ public record Task
         string Description,
         string? Alias,
         bool Milestone,
-        DateTime ProductionDate,
-        DateTime StartDate,
-        DateTime EstimatedCompletionDate,
-        DateTime FinalDateCompletion,
+        DateTime? ProductionDate,
+        DateTime? StartDate,
+        DateTime? EstimatedCompletionDate,
+        DateTime? FinalDateCompletion,
         DateTime? ActualEndDate,
         string? product,
         string? Notes,
         int Engineerid,
-        EngineerExperience Difficulty
+        int Difficulty
 );
 
  

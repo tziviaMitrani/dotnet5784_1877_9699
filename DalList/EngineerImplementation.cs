@@ -37,8 +37,5 @@ public class EngineerImplementation : IEngineer
         DataSource.Engineers.Add(item);
     }
 
-    public void Show(Engineer item) 
-    {
-        Console.WriteLine($"ID: {0}, name: {1}, email: {2}, level: {3}, cost: {4}\n",item.Id, item.Name, item.Email, item.Level, item.Cost);
-    }
+    
 }

@@ -2,17 +2,8 @@
 
 public enum EngineerExperience
 {
-    Expert,
+    Expert=1,
     Junior,
     Novice
 }
 
-
-public enum Urgency
-{
-    Regular,
-    Urgent,
-    VeryUrgent,
-    Immediately,
-    Emergency
-}
