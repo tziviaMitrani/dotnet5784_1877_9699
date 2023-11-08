@@ -182,12 +182,20 @@ namespace DalTest
         /// </summary>
         public static void ReadDependency()
         {
-            Console.WriteLine("Enter the ID number of the dependency you want to display.\n");
-            int _ID = 0;
-            int.TryParse(Console.ReadLine(), out _ID);
-            Dependency dependency = s_dalDependency!.Read(_ID)!;
-            Console.WriteLine("The dependency details is:\n");
-            ShowDependency(dependency);
+            try
+            {
+                Console.WriteLine("Enter the ID number of the dependency you want to display.\n");
+                int _ID = 0;
+                int.TryParse(Console.ReadLine(), out _ID);
+                Dependency dependency = s_dalDependency!.Read(_ID)! ?? throw new Exception($"Dependency with such an ID={_ID} does not exist");
+                Console.WriteLine("The dependency details is:\n");
+                ShowDependency(dependency);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
         }
 
         // <summary>
@@ -338,12 +346,20 @@ namespace DalTest
         /// </summary>
         public static void ReadEngineer() 
         {
-            Console.WriteLine("Enter the ID number of the engineer you want to display.\n");
-            int _ID = 0;
-            int.TryParse(Console.ReadLine(), out _ID);
-            Engineer engineer= s_dalEngineer!.Read(_ID)!;
-            Console.WriteLine("The engineer detailes:\n");
-            ShowEngineer(engineer);
+            try
+            {
+                Console.WriteLine("Enter the ID number of the engineer you want to display.\n");
+                int _ID = 0;
+                int.TryParse(Console.ReadLine(), out _ID);
+                Engineer engineer = s_dalEngineer!.Read(_ID)! ?? throw new Exception($"Engineer with such an ID={_ID} does not exist");
+                Console.WriteLine("The engineer detailes:\n");
+                ShowEngineer(engineer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
 
         }
 
@@ -515,12 +531,20 @@ namespace DalTest
         /// </summary>
         public static void ReadTask()
         {
-            Console.WriteLine("Enter the ID number of the task you want to display.\n");
-            int _ID = 0;
-            int.TryParse(Console.ReadLine(), out _ID);
-            DO.Task task = s_dalTask!.Read(_ID)!;
-            Console.WriteLine("The task details:\n");
-            ShowTask(task);
+            try
+            {
+                Console.WriteLine("Enter the ID number of the task you want to display.\n");
+                int _ID = 0;
+                int.TryParse(Console.ReadLine(), out _ID);
+                DO.Task task = s_dalTask!.Read(_ID)! ?? throw new Exception($"Task with such an ID={_ID} does not exist");
+                Console.WriteLine("The task details:\n");
+                ShowTask(task);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
         }
         // <summary>
         /// The program creat the desirable task.
