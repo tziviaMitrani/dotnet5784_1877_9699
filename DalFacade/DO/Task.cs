@@ -31,7 +31,7 @@ public record Task
         DateTime? ActualEndDate,
         string? product,
         string? Notes,
-        int Engineerid,
+        int? Engineerid,
         int Difficulty
 );
 

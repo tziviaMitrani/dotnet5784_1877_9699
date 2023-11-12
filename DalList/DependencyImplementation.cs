@@ -14,22 +14,33 @@ internal class DependencyImplementation : IDependency
 
     public void Delete(int id)
     {
-        Dependency? Dependency = Read(id) ?? throw new Exception($"Dependency with such an ID={id} does not exist");
-        DataSource.Dependencys.Remove(Dependency);
+        Dependency? Dependency = Read(id) ?? throw new DalDoesNotExistException($"Dependency with such an ID={id} does not exist");
+        DataSource.Dependencys.RemoveAll(dep=>dep.Id== id);
+    }
+
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+        Dependency? Dependency = DataSource.Dependencys?.FirstOrDefault(filter);
+        return Dependency;
     }
 
     public Dependency? Read(int id)
     {
-        Dependency? result = DataSource.Dependencys.Find(Dependency => Dependency.Id == id);
+        Dependency? result = DataSource.Dependencys.FirstOrDefault(Dependency => Dependency.Id == id);
         return result;
     }
 
-    public List<Dependency> ReadAll()
+  
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
-        return new List<Dependency>(DataSource.Dependencys);
+        if (filter == null)
+            return DataSource.Dependencys .Select(item => item);
+        else
+            return DataSource.Dependencys.Where(filter);
+
     }
 
-    public void Update(Dependency item)
+        public void Update(Dependency item)
     {
         Delete(item.Id);
         DataSource.Dependencys.Add(item);

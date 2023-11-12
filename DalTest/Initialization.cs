@@ -88,7 +88,6 @@ public static class Initialization
 
      private static void createTask()
         {
-        List<Engineer> Engineers = s_dal!.Engineer.ReadAll();
         for (int i = 1; i <= 100; i++)
             {
             int index = s_rand.Next(0, 4);
@@ -99,9 +98,8 @@ public static class Initialization
             DateTime _EstimatedCompletionDate = _ProductionDate.AddDays(30 * index);
             DateTime _FinalDateCompletion = _EstimatedCompletionDate.AddDays(20);
             int _IdRandom = rnd.Next(0, 40);
-            int _EngineerId = Engineers[_IdRandom].Id;
             int _difficulty = s_rand.Next(0, 2);
-            Task newTask = new(0,_Description, null, _Milestone, _ProductionDate, null, _EstimatedCompletionDate, _FinalDateCompletion,null, null, null, _EngineerId, _difficulty);
+            Task newTask = new(0,_Description, null, _Milestone, _ProductionDate, null, _EstimatedCompletionDate, _FinalDateCompletion,null, null, null, null, _difficulty);
             s_dal!.Task.Create(newTask);
         }
      }

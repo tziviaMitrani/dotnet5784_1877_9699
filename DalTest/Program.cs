@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Transactions;
 using System.Xml.Linq;
+using System.Collections;
+
 //using Dal;
 //using DalApi;
 //using DO;
@@ -16,7 +18,7 @@ using System.Xml.Linq;
 
 
 
-    internal class Program
+internal class Program
     {
         //private static ITask? s_dalTask = new TaskImplementation(); //stage 1
         //private static IEngineer? s_dalEngineer = new EngineerImplementation(); //stage 1
@@ -143,7 +145,7 @@ using System.Xml.Linq;
                 int _ID = 0, _IDDependTask = 0, _IDPreviousDependTask = 0;
                 int.TryParse(Console.ReadLine(), out _ID);
                 if (s_dal!.Dependency.Read(_ID) is null)
-                    throw new Exception($"Dependency with such an ID={_ID} does not exists");
+                    throw new DalDoesNotExistException($"Dependency with such an ID={_ID} does not exists");
                 Dependency dependency = s_dal!.Dependency.Read(_ID)!;
                 Console.WriteLine("The dependency you want to update is:\n");
                 ShowDependency(dependency);
@@ -172,7 +174,7 @@ using System.Xml.Linq;
         /// </summary>
         public static void ReadAllDependency()
         {
-            List<Dependency> dependencies = s_dal!.Dependency.ReadAll();
+            IEnumerable<Dependency> dependencies = s_dal!.Dependency.ReadAll()!;
             Console.WriteLine("The whole dependencies details:\n");
             foreach (var dependency in dependencies)
             {
@@ -190,7 +192,7 @@ using System.Xml.Linq;
                 Console.WriteLine("Enter the ID number of the dependency you want to display.\n");
                 int _ID = 0;
                 int.TryParse(Console.ReadLine(), out _ID);
-                Dependency dependency = s_dal!.Dependency.Read(_ID)! ?? throw new Exception($"Dependency with such an ID={_ID} does not exist");
+                Dependency dependency = s_dal!.Dependency.Read(_ID)! ?? throw new DalDoesNotExistException($"Dependency with such an ID={_ID} does not exist");
                 Console.WriteLine("The dependency details is:\n");
                 ShowDependency(dependency);
             }
@@ -303,7 +305,7 @@ using System.Xml.Linq;
                 int _ID = 0;
                 int.TryParse(Console.ReadLine(), out _ID);
                 if (s_dal!.Engineer.Read(_ID) is null)
-                    throw new Exception($"Engineer with such an ID={_ID} does not exists");
+                    throw new DalDoesNotExistException($"Engineer with such an ID={_ID} does not exists");
                 Engineer engineer =s_dal!.Engineer.Read(_ID)!;
                 Console.WriteLine("The Engineer that you want to update is:\n");
                 ShowEngineer(engineer);
@@ -336,7 +338,7 @@ using System.Xml.Linq;
         /// </summary>
         public static void ReadAllEngineer()
         {
-            List<Engineer> engineers = s_dal!.Engineer.ReadAll();
+            IEnumerable<Engineer> engineers = s_dal!.Engineer.ReadAll()!;
             Console.WriteLine("The whole engineers:\n");
             foreach(var engineer in engineers)
             {
@@ -354,7 +356,7 @@ using System.Xml.Linq;
                 Console.WriteLine("Enter the ID number of the engineer you want to display.\n");
                 int _ID = 0;
                 int.TryParse(Console.ReadLine(), out _ID);
-                Engineer engineer = s_dal!.Engineer.Read(_ID)! ?? throw new Exception($"Engineer with such an ID={_ID} does not exist");
+                Engineer engineer = s_dal!.Engineer.Read(_ID)! ?? throw new DalDoesNotExistException($"Engineer with such an ID={_ID} does not exist");
                 Console.WriteLine("The engineer detailes:\n");
                 ShowEngineer(engineer);
             }
@@ -469,7 +471,7 @@ using System.Xml.Linq;
                 int _ID = 0;
                 int.TryParse(Console.ReadLine(), out _ID);
                 if ((s_dal!.Task.Read(_ID) is null))
-                    throw new Exception($"Task with such an ID={_ID} does not exists");
+                    throw new DalDoesNotExistException($"Task with such an ID={_ID} does not exists");
                 DO.Task task = s_dal!.Task.Read(_ID)!;
                 Console.WriteLine("The task you want to update is:\n");
                 ShowTask(task);
@@ -501,7 +503,7 @@ using System.Xml.Linq;
                 if (_Notes is null)
                     _Notes = task.Notes;
                 if (!int.TryParse(Console.ReadLine(), out _IDEngineer))
-                    _IDEngineer = task.Engineerid;
+                    _IDEngineer = (int)task.Engineerid!;
                 if(!int.TryParse(Console.ReadLine(), out _Difficulty))
                     _Difficulty = task.Difficulty;
                 DO.Task newTask = new(_ID, _Description, _Alias, false, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, _Product, _Notes, _IDEngineer, _Difficulty);
@@ -522,7 +524,7 @@ using System.Xml.Linq;
 
         public static void ReadAllTask()
         {
-            List<DO.Task> tasks = s_dal!.Task.ReadAll();
+            IEnumerable<DO.Task> tasks = s_dal!.Task.ReadAll()!;
             Console.WriteLine("The whole tasks details:\n");
             foreach (var task in tasks)
             {
@@ -539,7 +541,7 @@ using System.Xml.Linq;
                 Console.WriteLine("Enter the ID number of the task you want to display.\n");
                 int _ID = 0;
                 int.TryParse(Console.ReadLine(), out _ID);
-                DO.Task task = s_dal!.Task.Read(_ID)! ?? throw new Exception($"Task with such an ID={_ID} does not exist");
+                DO.Task task = s_dal!.Task.Read(_ID)! ?? throw new DalDoesNotExistException($"Task with such an ID={_ID} does not exist");
                 Console.WriteLine("The task details:\n");
                 ShowTask(task);
             }
