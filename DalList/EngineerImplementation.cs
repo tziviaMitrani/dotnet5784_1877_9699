@@ -4,7 +4,7 @@ using DO;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
