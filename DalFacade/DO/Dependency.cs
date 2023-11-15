@@ -9,12 +9,16 @@
 
 
 public record Dependency
-(   
+(
     int Id,
     int IdDependTask,
     int IdPreviousDependTask
-    
-);
+
+)
+{
+    public Dependency() : this(0, 0, 0) { } //empty ctor for stage 3
+}
+
 
 
 

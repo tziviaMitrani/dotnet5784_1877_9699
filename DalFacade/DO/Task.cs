@@ -33,7 +33,13 @@ public record Task
         string? Notes,
         int? Engineerid,
         int Difficulty
-);
+)
 
- 
+{
+    public Task() : this(0, "", "", false, null, null, null, null, null, "", "", 0, 0) { } //empty ctor for stage 3
+}
+
+
+
+
 

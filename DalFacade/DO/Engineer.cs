@@ -18,4 +18,9 @@ public record Engineer
     EngineerExperience Level = EngineerExperience.Junior,
     double Cost=0
 
-);
+)
+
+{
+    public Engineer() : this(0,"") { } //empty ctor for stage 3
+}
+
