@@ -9,38 +9,50 @@ using System.Xml.Linq;
 internal class TaskImplementation : ITask
 {
 
-    const string FILETASK = @"..\..\xml\tasks.xml";
+    const string FILETASK = "tasks";
     //XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Task>));
     public int Create(Task item)
     {
-        List<Task?> l = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
-        l.Add(item);
-        XMLTools.SaveListToXMLSerializer<Task>(l,FILETASK);
+        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
+        list.Add(item);
+        XMLTools.SaveListToXMLSerializer<Task>(list,FILETASK);
         return item.Id;
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK) ?? throw new Exception($"Task with such an ID={id} does not exist");
+        list.RemoveAll(l => l.Id == id);
+        XMLTools.SaveListToXMLSerializer<Task>(list, FILETASK);
+
     }
 
     public Task? Read(int id)
     {
-        throw new NotImplementedException();
+        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
+        return list.FirstOrDefault(Task => Task.Id == id);
     }
 
     public Task? Read(Func<Task, bool> filter)
     {
-        throw new NotImplementedException();
+        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
+        return list.FirstOrDefault(filter);
+        
     }
 
     public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
+        if (filter == null)
+            return list.Select(item => item);
+        else
+            return list.Where(filter);
     }
 
     public void Update(Task item)
     {
-        throw new NotImplementedException();
+        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
+        Delete(item.Id);
+        list.Add(item);
     }
 }
