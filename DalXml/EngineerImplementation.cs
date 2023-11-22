@@ -27,13 +27,13 @@ internal class EngineerImplementation : IEngineer
     public Engineer? Read(int id)
     {
         List<Engineer?> list = XMLTools.LoadListFromXMLSerializer<Engineer>(FILEENGINEER);
-        return list.FirstOrDefault(Engineer => Engineer.Id == id);
+        return list.FirstOrDefault(Engineer => Engineer!.Id == id);
     }
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         List<Engineer?> list = XMLTools.LoadListFromXMLSerializer<Engineer>(FILEENGINEER);
-        return list.FirstOrDefault(filter);
+        return list.FirstOrDefault(filter!);
     }
 
     public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)

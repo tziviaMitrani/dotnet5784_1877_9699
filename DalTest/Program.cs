@@ -30,8 +30,18 @@ internal class Program
     /// </summary>
     static void Main()
     {
-        Initialization.Do(s_dal); //stage 2
-        main2();
+        try
+        {
+            Initialization.Do(s_dal); //stage 2
+            main2();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine( ex);
+        }
+
+
+        
     }
 
 
