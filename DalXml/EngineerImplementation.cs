@@ -3,6 +3,7 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using System.Linq;
 
 internal class EngineerImplementation : IEngineer
@@ -27,8 +28,8 @@ internal class EngineerImplementation : IEngineer
     public Engineer? Read(int id)
     {
         List<Engineer?> list = XMLTools.LoadListFromXMLSerializer<Engineer>(FILEENGINEER);
-        return list.FirstOrDefault(Engineer => Engineer!.Id == id);
-    }
+        return list.FirstOrDefault(Engineer => Engineer.Id == id);
+    } 
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
@@ -42,7 +43,7 @@ internal class EngineerImplementation : IEngineer
         if (filter == null)
             return list.Select(item => item);
         else
-            return list.Where(filter);
+            return list.Where(filter!);
     }
 
 
