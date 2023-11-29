@@ -11,8 +11,8 @@
 public record Dependency
 (
     int Id,
-    int IdDependTask,
-    int IdPreviousDependTask
+    int? IdDependTask,
+    int? IdPreviousDependTask
 
 )
 {

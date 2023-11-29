@@ -1,5 +1,6 @@
 ﻿namespace Dal;
 
+using DO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -25,6 +26,17 @@ static class XMLTools
 
     public static int? ToIntNullable(this XElement element, string name) =>
         int.TryParse((string?)element.Element(name), out var result) ? (int?)result : null;
+    #endregion
+
+    #region XmlConfig
+    public static int GetAndIncreaseNextId(string data_config_xml, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        int nextId = root.ToIntNullable(elemName) ?? throw new FormatException($"can't convert id.  {data_config_xml}, {elemName}");
+        root.Element(elemName)?.SetValue((nextId + 1).ToString());
+        XMLTools.SaveListToXMLElement(root, data_config_xml);
+        return nextId;
+    }
     #endregion
 
     #region SaveLoadWithXElement
@@ -95,9 +107,5 @@ static class XMLTools
         }
     }
 
-    internal static int GetAndIncreaseNextId(string s_data_config_xml, string v)
-    {
-        throw new NotImplementedException();
-    }
     #endregion
 }

@@ -21,14 +21,14 @@ internal class EngineerImplementation : IEngineer
     public void Delete(int id)
     {
         List<Engineer?> list = XMLTools.LoadListFromXMLSerializer<Engineer>(FILEENGINEER) ?? throw new Exception($"Task with such an ID={id} does not exist");
-        list.RemoveAll(l => l.Id == id);
+        list.RemoveAll(l => l!.Id == id);
         XMLTools.SaveListToXMLSerializer<Engineer>(list, FILEENGINEER);
     }
 
     public Engineer? Read(int id)
     {
         List<Engineer?> list = XMLTools.LoadListFromXMLSerializer<Engineer>(FILEENGINEER);
-        return list.FirstOrDefault(Engineer => Engineer.Id == id);
+        return list.FirstOrDefault(Engineer => Engineer!.Id == id);
     } 
 
     public Engineer? Read(Func<Engineer, bool> filter)
@@ -46,12 +46,11 @@ internal class EngineerImplementation : IEngineer
             return list.Where(filter!);
     }
 
-
-
     public void Update(Engineer item)
     {
-        List<Engineer?> list = XMLTools.LoadListFromXMLSerializer<Engineer>(FILEENGINEER);
         Delete(item.Id);
+        List<Engineer?> list = XMLTools.LoadListFromXMLSerializer<Engineer>(FILEENGINEER);
         list.Add(item);
+        XMLTools.SaveListToXMLSerializer<Engineer>(list, FILEENGINEER);
     }
 }

@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 using System.Transactions;
 using System.Xml.Linq;
 using System.Collections;
+using System;
 
 //using Dal;
 //using DalApi;
@@ -161,9 +162,9 @@ internal class Program
             ShowDependency(dependency);
             Console.WriteLine("Enter the ID of the depend task or the ID of the pervious depend task.\n");
             if (!int.TryParse(Console.ReadLine(), out _IDDependTask))
-                _IDDependTask = dependency.IdDependTask;
+                _IDDependTask = (int)dependency.IdDependTask!;
             if (!int.TryParse(Console.ReadLine(), out _IDPreviousDependTask))
-                _IDPreviousDependTask = dependency.IdPreviousDependTask;
+                _IDPreviousDependTask = (int)dependency.IdPreviousDependTask!;
             Dependency dependency1 = new(_ID, _IDDependTask, _IDPreviousDependTask);
             s_dal!.Dependency.Update(dependency1);
         }
@@ -389,6 +390,8 @@ internal class Program
             int _ID = 0, _l = 0;
             double _cost = 0;
             int.TryParse(Console.ReadLine(), out _ID);
+            if ((s_dal!.Engineer.Read(_ID) is not null))
+                throw new DalAlreadyExistsException($"Engineer with such an ID={_ID} already exists");
             string _name = Console.ReadLine()!;
             string _email = Console.ReadLine()!;
             int.TryParse(Console.ReadLine(), out _l);
@@ -482,41 +485,53 @@ internal class Program
             int.TryParse(Console.ReadLine(), out _ID);
             if ((s_dal!.Task.Read(_ID) is null))
                 throw new DalDoesNotExistException($"Task with such an ID={_ID} does not exists");
-            DO.Task task = s_dal!.Task.Read(_ID)!;
+            Task task = s_dal!.Task.Read(_ID)!;
             Console.WriteLine("The task you want to update is:\n");
             ShowTask(task);
-            Console.WriteLine("Enter the description,\nan alias,\n" +
-                "a start date,\nan estimated completion date,\na final date completion,\nan actual end date\n" +
-                "a product,\nnotes,\n an engineer Id and difficulty 1-10.\n");
+            //Console.WriteLine("Enter the description,\nan alias,\n" +
+            //    "a start date,\nan estimated completion date,\na final date completion,\nan actual end date\n" +
+            //    "a product,\nnotes,\n an engineer Id and difficulty 1-10.\n");
+            
             int _IDEngineer = 0, _Difficulty = 1;
-            string? _Description = Console.ReadLine(), _Alias = Console.ReadLine();
+            DateTime _ProductionDate = (DateTime)task.ProductionDate!, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate;
+            Console.WriteLine("Enter the description\n");
+            string? _Description = Console.ReadLine();
             if (_Description is null)
                 _Description = task.Description;
+            Console.WriteLine("an alias\n");
+            string? _Alias = Console.ReadLine();
             if (_Alias is null)
                 _Alias = task.Alias;
-            DateTime _ProductionDate = (DateTime)task.ProductionDate!, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate;
+            Console.WriteLine("\"a start date\n");
             DateTime.TryParse(Console.ReadLine(), out _StartDate);
             if (_StartDate == DateTime.MinValue)
                 _StartDate = (DateTime)task.StartDate!;
+            Console.WriteLine("an estimated completion date\n");
             DateTime.TryParse(Console.ReadLine(), out _EstimatedCompletionDate);
             if (_EstimatedCompletionDate == DateTime.MinValue)
                 _EstimatedCompletionDate = (DateTime)task.EstimatedCompletionDate!;
+            Console.WriteLine("a final date completion\n");
             DateTime.TryParse(Console.ReadLine(), out _FinalDateCompletion);
             if (_FinalDateCompletion == DateTime.MinValue)
                 _FinalDateCompletion = (DateTime)task.FinalDateCompletion!;
+            Console.WriteLine("an actual end date\n");
             DateTime.TryParse(Console.ReadLine(), out _ActualEndDate);
             if (_ActualEndDate == DateTime.MinValue)
                 _ActualEndDate = (DateTime)task.ActualEndDate!;
+            Console.WriteLine("a product\n");
             string? _Product = Console.ReadLine(), _Notes = Console.ReadLine();
             if (_Product is null)
                 _Product = task.product;
+            Console.WriteLine("notes\n");
             if (_Notes is null)
                 _Notes = task.Notes;
+            Console.WriteLine("_ID Engineer\n");
             if (!int.TryParse(Console.ReadLine(), out _IDEngineer))
                 _IDEngineer = (int)task.Engineerid!;
+            Console.WriteLine("an engineer Id and difficulty 1-10\n");
             if (!int.TryParse(Console.ReadLine(), out _Difficulty))
                 _Difficulty = task.Difficulty;
-            DO.Task newTask = new(_ID, _Description, _Alias, false, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, _Product, _Notes, _IDEngineer, _Difficulty);
+            Task newTask = new(_ID, _Description, _Alias, false, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, _Product, _Notes, _IDEngineer, _Difficulty);
             s_dal!.Task.Update(newTask);
         }
         catch (Exception ex)

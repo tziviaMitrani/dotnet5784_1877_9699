@@ -13,8 +13,10 @@ internal class TaskImplementation : ITask
     //XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Task>));
     public int Create(Task item)
     {
+        int id= Config.NextTaskId;
+        Task newTask= item with { Id = id };    
         List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
-        list.Add(item);
+        list.Add(newTask);
         XMLTools.SaveListToXMLSerializer<Task>(list,FILETASK);
         return item.Id;
     }
@@ -22,7 +24,7 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK) ?? throw new Exception($"Task with such an ID={id} does not exist");
-        list.RemoveAll(l => l.Id == id);
+        list.RemoveAll(l => l!.Id == id);
         XMLTools.SaveListToXMLSerializer<Task>(list, FILETASK);
 
     }
@@ -30,13 +32,13 @@ internal class TaskImplementation : ITask
     public Task? Read(int id)
     {
         List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
-        return list.FirstOrDefault(Task => Task.Id == id);
+        return list.FirstOrDefault(Task => Task!.Id == id);
     }
 
     public Task? Read(Func<Task, bool> filter)
     {
         List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
-        return list.FirstOrDefault(filter);
+        return list.FirstOrDefault(filter!);
         
     }
 
@@ -46,13 +48,14 @@ internal class TaskImplementation : ITask
         if (filter == null)
             return list.Select(item => item);
         else
-            return list.Where(filter);
+            return list.Where(filter!);
     }
 
     public void Update(Task item)
     {
-        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
         Delete(item.Id);
+        List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
         list.Add(item);
+        XMLTools.SaveListToXMLSerializer<Task>(list, FILETASK);
     }
 }
