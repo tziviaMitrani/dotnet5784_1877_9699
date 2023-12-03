@@ -34,7 +34,7 @@ internal class DependencyImplementation : IDependency
         Dependency newItem = item with { Id = id };
         list.Add(new XElement("Dependency", createDependencyElement(newItem)));
         XMLTools.SaveListToXMLElement(list, FILEDEPENDENCY);
-        return item.Id;
+        return newItem.Id;
     }
 
     public void Delete(int id)
@@ -52,7 +52,7 @@ internal class DependencyImplementation : IDependency
     public Dependency? Read(int id)
     {
         return (Dependency)getDependency(XMLTools.LoadListFromXMLElement(FILEDEPENDENCY)?.Elements()
-        .FirstOrDefault(st => st.ToIntNullable("ID") == id) ?? throw new DalDoesNotExistException($"Dependency with such an ID={id} does not exist"))!;
+        .FirstOrDefault(st => st.ToIntNullable("Id") == id) ?? throw new DalDoesNotExistException($"Dependency with such an ID={id} does not exist"))!;
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
@@ -70,9 +70,9 @@ internal class DependencyImplementation : IDependency
 
     public void Update(Dependency item)
     {
-        XElement? list = XMLTools.LoadListFromXMLElement(FILEDEPENDENCY);
         Delete(item.Id);
-        list.Add(item);
+        XElement? list = XMLTools.LoadListFromXMLElement(FILEDEPENDENCY);
+        list.Add(new XElement("Dependency", createDependencyElement(item)));
         XMLTools.SaveListToXMLElement(list, FILEDEPENDENCY);
     }
 }

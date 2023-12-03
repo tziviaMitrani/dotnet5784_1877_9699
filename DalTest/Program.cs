@@ -221,12 +221,11 @@ internal class Program
     {
         try
         {
-            Console.WriteLine("Enter the ID, ID of depend task and the ID of the previous depend task.\n");
-            int _ID = 0, _DependTask = 0, _PreviousTask = 0;
-            int.TryParse(Console.ReadLine(), out _ID);
+            Console.WriteLine("Enter ID of depend task and the ID of the previous depend task.\n");
+            int _DependTask = 0, _PreviousTask = 0;
             int.TryParse(Console.ReadLine(), out _DependTask);
             int.TryParse(Console.ReadLine(), out _PreviousTask);
-            Dependency dependency = new(_ID, _DependTask, _PreviousTask);
+            Dependency dependency = new(0, _DependTask, _PreviousTask);
             int IDShow = s_dal!.Dependency.Create(dependency);
             Console.WriteLine("A dependency with this ID={0} is created.", IDShow);
         }

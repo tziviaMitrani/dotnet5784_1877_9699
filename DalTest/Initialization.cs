@@ -65,9 +65,6 @@ public static class Initialization
         "Racheli Bekerman",
         "Miri Kaner",
         "Suly Eler"
-
-
-
     };
 
         foreach (var _name in engineerNames)
@@ -88,7 +85,7 @@ public static class Initialization
 
      private static void createTask()
         {
-        for (int i = 1; i <= 100; i++)
+        for (int i = 1; i <= 101; i++)
             {
             int index = s_rand.Next(0, 4);
             string _Description = "";

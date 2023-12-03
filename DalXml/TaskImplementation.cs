@@ -18,7 +18,7 @@ internal class TaskImplementation : ITask
         List<Task?> list = XMLTools.LoadListFromXMLSerializer<Task>(FILETASK);
         list.Add(newTask);
         XMLTools.SaveListToXMLSerializer<Task>(list,FILETASK);
-        return item.Id;
+        return newTask.Id;
     }
 
     public void Delete(int id)
