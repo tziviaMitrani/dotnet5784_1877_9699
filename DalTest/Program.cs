@@ -8,6 +8,8 @@ using System.Transactions;
 using System.Xml.Linq;
 using System.Collections;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Reflection;
 
 //using Dal;
 //using DalApi;
@@ -501,7 +503,8 @@ internal class Program
             string? _Alias = Console.ReadLine();
             if (_Alias is null)
                 _Alias = task.Alias;
-            Console.WriteLine("\"a start date\n");
+            Console.WriteLine("\a start date\n");
+            
             DateTime.TryParse(Console.ReadLine(), out _StartDate);
             if (_StartDate == DateTime.MinValue)
                 _StartDate = (DateTime)task.StartDate!;
@@ -518,10 +521,11 @@ internal class Program
             if (_ActualEndDate == DateTime.MinValue)
                 _ActualEndDate = (DateTime)task.ActualEndDate!;
             Console.WriteLine("a product\n");
-            string? _Product = Console.ReadLine(), _Notes = Console.ReadLine();
+            string? _Product = Console.ReadLine();
             if (_Product is null)
                 _Product = task.product;
             Console.WriteLine("notes\n");
+            string? _Notes = Console.ReadLine();
             if (_Notes is null)
                 _Notes = task.Notes;
             Console.WriteLine("_ID Engineer\n");
@@ -585,18 +589,20 @@ internal class Program
             Console.WriteLine("Enter the description,\nan alias,\na production date,\na start date,\n" +
                 "an estimated completion date,\na final date completion,\nan actual end date,\na product,\n" +
                 "notes,\nan engineer Id and difficulty 1-10.\n");
-            int _ID = 0, _Engineerid = 0, _Difficulty = 1;
+            int _ID = 0, _Engineerid = 1, _Difficulty = 1;
             string _Description = Console.ReadLine()!;
             string? _Alias = Console.ReadLine();
-            DateTime _ProductionDate, _StartDate = DateTime.Now, _EstimatedCompletionDate, _FinalDateCompletion;
+            DateTime _ProductionDate, _EstimatedCompletionDate, _FinalDateCompletion;
+            DateTime _StartDate = DateTime.Now;   
             DateTime.TryParse(Console.ReadLine(), out _ProductionDate);
             DateTime.TryParse(Console.ReadLine(), out _EstimatedCompletionDate);
             DateTime.TryParse(Console.ReadLine(), out _FinalDateCompletion);
+            DateTime _ActualEndDate = DateTime.MinValue;
             string? _product = Console.ReadLine();
             string? _Notes = Console.ReadLine();
             int.TryParse(Console.ReadLine(), out _Engineerid);
             int.TryParse(Console.ReadLine(), out _Difficulty);
-            DO.Task task = new(_ID, _Description, _Alias, false, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, null, _product, _Notes, _Engineerid, _Difficulty);
+            DO.Task task = new(_ID, _Description, _Alias, false, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, _product, _Notes, _Engineerid, _Difficulty);
             int IDShow = s_dal!.Task.Create(task);
             Console.WriteLine("A task with this ID={0} created.", IDShow);
         }

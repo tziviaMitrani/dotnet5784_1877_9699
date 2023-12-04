@@ -96,7 +96,9 @@ public static class Initialization
             DateTime _FinalDateCompletion = _EstimatedCompletionDate.AddDays(20);
             int _IdRandom = rnd.Next(0, 40);
             int _difficulty = s_rand.Next(0, 2);
-            Task newTask = new(0,_Description, null, _Milestone, _ProductionDate, null, _EstimatedCompletionDate, _FinalDateCompletion,null, null, null, null, _difficulty);
+            DateTime _startDate = DateTime.Now;
+            DateTime _ActualEndDate = DateTime.MinValue;
+            Task newTask = new(0,_Description, null, _Milestone, _ProductionDate, _startDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, null, null, 1, _difficulty);
             s_dal!.Task.Create(newTask);
         }
      }

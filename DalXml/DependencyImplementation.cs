@@ -26,7 +26,7 @@ internal class DependencyImplementation : IDependency
         if (dependency.IdPreviousDependTask is not null)
             yield return new XElement("IdPreviousDependTask", dependency.IdPreviousDependTask);
     }
-    //XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Engineer>));
+
     public int Create(Dependency item)
     {
         XElement? list = XMLTools.LoadListFromXMLElement(FILEDEPENDENCY);
