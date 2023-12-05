@@ -488,11 +488,7 @@ internal class Program
                 throw new DalDoesNotExistException($"Task with such an ID={_ID} does not exists");
             Task task = s_dal!.Task.Read(_ID)!;
             Console.WriteLine("The task you want to update is:\n");
-            ShowTask(task);
-            //Console.WriteLine("Enter the description,\nan alias,\n" +
-            //    "a start date,\nan estimated completion date,\na final date completion,\nan actual end date\n" +
-            //    "a product,\nnotes,\n an engineer Id and difficulty 1-10.\n");
-            
+            ShowTask(task);            
             int _IDEngineer = 0, _Difficulty = 1;
             DateTime _ProductionDate = (DateTime)task.ProductionDate!, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate;
             Console.WriteLine("Enter the description\n");
@@ -504,7 +500,6 @@ internal class Program
             if (_Alias is null)
                 _Alias = task.Alias;
             Console.WriteLine("\a start date\n");
-            
             DateTime.TryParse(Console.ReadLine(), out _StartDate);
             if (_StartDate == DateTime.MinValue)
                 _StartDate = (DateTime)task.StartDate!;
@@ -602,7 +597,7 @@ internal class Program
             string? _Notes = Console.ReadLine();
             int.TryParse(Console.ReadLine(), out _Engineerid);
             int.TryParse(Console.ReadLine(), out _Difficulty);
-            DO.Task task = new(_ID, _Description, _Alias, false, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, _product, _Notes, _Engineerid, _Difficulty);
+            Task task = new(_ID, _Description, _Alias, false, _ProductionDate, _StartDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, _product, _Notes, _Engineerid, _Difficulty);
             int IDShow = s_dal!.Task.Create(task);
             Console.WriteLine("A task with this ID={0} created.", IDShow);
         }

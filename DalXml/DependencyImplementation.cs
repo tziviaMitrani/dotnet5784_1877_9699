@@ -9,15 +9,25 @@ using System.Xml.Linq;
 internal class DependencyImplementation : IDependency
 {
     const string FILEDEPENDENCY = "dependencies";
-    static DO.Dependency? getDependency(XElement d)
+    /// <summary>
+    /// converter XElement to Dependency.
+    /// </summary>
+    /// <param name="d"></param>
+    /// <returns></returns>
+    static Dependency? getDependency(XElement d)
     {
-        return d.ToIntNullable("Id") is null ? null : new DO.Dependency()
+        return d.ToIntNullable("Id") is null ? null : new Dependency()
         {
             Id = (int)d.Element("Id")!,
             IdDependTask = (int?)d.Element("IdDependTask")!,
             IdPreviousDependTask = (int?)d.Element("IdPreviousDependTask")!
         };
     }
+    /// <summary>
+    /// converter Dependency to IEnumerable<XElement>.
+    /// </summary>
+    /// <param name="dependency"></param>
+    /// <returns></returns>
     static IEnumerable<XElement> createDependencyElement(Dependency dependency)
     {
         yield return new XElement("Id", dependency.Id);
@@ -27,6 +37,11 @@ internal class DependencyImplementation : IDependency
             yield return new XElement("IdPreviousDependTask", dependency.IdPreviousDependTask);
     }
 
+    /// <summary>
+    /// create Dependency Element
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public int Create(Dependency item)
     {
         XElement? list = XMLTools.LoadListFromXMLElement(FILEDEPENDENCY);
@@ -37,6 +52,11 @@ internal class DependencyImplementation : IDependency
         return newItem.Id;
     }
 
+    /// <summary>
+    /// Delete dependency by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Delete(int id)
     {
         XElement? list = XMLTools.LoadListFromXMLElement(FILEDEPENDENCY);
@@ -47,19 +67,33 @@ internal class DependencyImplementation : IDependency
         XMLTools.SaveListToXMLElement(list, FILEDEPENDENCY);
     }
 
-    
-
+    /// <summary>
+    /// Read dependency by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public Dependency? Read(int id)
     {
         return (Dependency)getDependency(XMLTools.LoadListFromXMLElement(FILEDEPENDENCY)?.Elements()
         .FirstOrDefault(st => st.ToIntNullable("Id") == id) ?? throw new DalDoesNotExistException($"Dependency with such an ID={id} does not exist"))!;
     }
 
+    /// <summary>
+    /// Read dependency by Func<Dependency, bool> filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         return (Dependency)XMLTools.LoadListFromXMLElement(FILEDEPENDENCY).Elements().Select(s => getDependency(s)).FirstOrDefault(filter!)!;
     }
 
+    /// <summary>
+    /// Read all dependencies.
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
         return filter is null
@@ -68,6 +102,10 @@ internal class DependencyImplementation : IDependency
 
     }
 
+    /// <summary>
+    /// update dependency.
+    /// </summary>
+    /// <param name="item"></param>
     public void Update(Dependency item)
     {
         Delete(item.Id);
