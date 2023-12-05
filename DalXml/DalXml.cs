@@ -1,9 +1,12 @@
 ﻿using DalApi;
+using System.Diagnostics;
 
 namespace Dal;
 
-public class DalXml : IDal
+internal sealed class DalXml : IDal
 {
+    public static IDal Instance { get; } = new DalXml();
+    private DalXml() { }    
     public IEngineer Engineer => new EngineerImplementation();
 
     public ITask Task => new TaskImplementation();
