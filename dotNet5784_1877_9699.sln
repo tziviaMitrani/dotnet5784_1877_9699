@@ -15,12 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{9FB66F12-DB79-4DFD-ABA0-35E4BE16F750}"
 	ProjectSection(SolutionItems) = preProject
-		xml\data-config.xml = xml\data-config.xml
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\data-config.xml = xml\data-config.xml
 		xml\dependencies.xml = xml\dependencies.xml
 		xml\engineers.xml = xml\engineers.xml
 		xml\tasks.xml = xml\tasks.xml
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{5474F1E4-9FED-4ACB-A156-C5D3C156BB17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{0419159F-3695-496A-BF36-696B75DD2114}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0419159F-3695-496A-BF36-696B75DD2114}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0419159F-3695-496A-BF36-696B75DD2114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5474F1E4-9FED-4ACB-A156-C5D3C156BB17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5474F1E4-9FED-4ACB-A156-C5D3C156BB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5474F1E4-9FED-4ACB-A156-C5D3C156BB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5474F1E4-9FED-4ACB-A156-C5D3C156BB17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

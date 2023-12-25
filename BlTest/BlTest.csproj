@@ -13,7 +13,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="BO\**" />
+	  <EmbeddedResource Remove="BO\**" />
+	  <None Remove="BO\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\BL\BL.csproj" />
+		<ProjectReference Include="..\DalList\DalList.csproj" />
+		<ProjectReference Include="..\DalTest\DalTest.csproj" />
 	</ItemGroup>
 
 </Project>

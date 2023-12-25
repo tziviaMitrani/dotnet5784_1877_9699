@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
@@ -12,5 +12,10 @@
 		<RootNamespace />
 
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
+	  <ProjectReference Include="..\DalXml\DalXml.csproj" />
+	</ItemGroup>
 
 </Project>
