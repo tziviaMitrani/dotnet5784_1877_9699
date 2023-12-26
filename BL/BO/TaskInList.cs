@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlTest.BO;
 
-namespace BO
+
+namespace BO;
+
+public class TaskInList
 {
-    internal class TaskInList
-    {
-    }
+    public int Id { get; init; }
+    public string Description { get; set; }
+    public string Alias { get; set; }
+    public Status status { get; set; }
 }

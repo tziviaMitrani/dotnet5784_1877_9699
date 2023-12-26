@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlTest.BO
-{
-    internal class Enums
-    {
-    }
+namespace BlTest.BO;
+
+
+public enum Status {
+  Unscheduled,
+  Scheduled,
+  OnTrack,
+  InJeopardy
 }
+
