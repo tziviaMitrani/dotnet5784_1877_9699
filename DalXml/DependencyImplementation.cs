@@ -19,8 +19,8 @@ internal class DependencyImplementation : IDependency
         return d.ToIntNullable("Id") is null ? null : new Dependency()
         {
             Id = (int)d.Element("Id")!,
-            IdDependTask = (int?)d.Element("IdDependTask")!,
-            IdPreviousDependTask = (int?)d.Element("IdPreviousDependTask")!
+            DependentTask = (int?)d.Element("DependentTask")!,
+            DependsOnTask = (int?)d.Element("DependsOnTask")!
         };
     }
     /// <summary>
@@ -31,10 +31,10 @@ internal class DependencyImplementation : IDependency
     static IEnumerable<XElement> createDependencyElement(Dependency dependency)
     {
         yield return new XElement("Id", dependency.Id);
-        if (dependency.IdDependTask is not null)
-            yield return new XElement("IdDependTask", dependency.IdDependTask);
-        if (dependency.IdPreviousDependTask is not null)
-            yield return new XElement("IdPreviousDependTask", dependency.IdPreviousDependTask);
+        if (dependency.DependentTask is not null)
+            yield return new XElement("DependentTask", dependency.DependentTask);
+        if (dependency.DependsOnTask is not null)
+            yield return new XElement("DependsOnTask", dependency.DependsOnTask);
     }
 
     /// <summary>

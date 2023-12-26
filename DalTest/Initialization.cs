@@ -91,14 +91,14 @@ public static class Initialization
             string _Description = "";
             bool _Milestone = false;
             Random rnd = new Random();
-            DateTime _ProductionDate =new DateTime(2023, 1, 1);
-            DateTime _EstimatedCompletionDate = _ProductionDate.AddDays(30 * index);
-            DateTime _FinalDateCompletion = _EstimatedCompletionDate.AddDays(20);
+            DateTime _CreatedAtDate =new DateTime(2023, 1, 1);
+            DateTime _ScheduledDate = _CreatedAtDate.AddDays(30 * index);
+            DateTime _DeadlineDate = _ScheduledDate.AddDays(20);
             int _IdRandom = rnd.Next(0, 40);
             int _difficulty = s_rand.Next(0, 2);
             DateTime _startDate = DateTime.Now;
-            DateTime _ActualEndDate = DateTime.MinValue;
-            Task newTask = new(0,_Description, null, _Milestone, _ProductionDate, _startDate, _EstimatedCompletionDate, _FinalDateCompletion, _ActualEndDate, null, null, 1, _difficulty);
+            DateTime _CompleteDate = DateTime.MinValue;
+            Task newTask = new(0,_Description, null, _Milestone, _CreatedAtDate, _startDate, _ScheduledDate, _DeadlineDate, _CompleteDate, null, null, 1, _difficulty);
             s_dal!.Task.Create(newTask);
         }
      }
@@ -108,9 +108,9 @@ public static class Initialization
         for (int i = 1; i < 251; i++)
         {
             Random rnd = new Random();
-            int _IdDependTask = rnd.Next(1, 101);
-            int _IdPreviousDependTask = rnd.Next(1, _IdDependTask);
-            Dependency newDependency = new(0, _IdDependTask, _IdPreviousDependTask);
+            int _DependentTask = rnd.Next(1, 101);
+            int _DependsOnTask = rnd.Next(1, _DependentTask);
+            Dependency newDependency = new(0, _DependentTask, _DependsOnTask);
             s_dal!.Dependency.Create(newDependency);
         }
     }

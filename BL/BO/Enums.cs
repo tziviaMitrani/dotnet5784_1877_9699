@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlTest.BO;
-
+﻿namespace BlTest.BO;
 
 public enum Status {
   Unscheduled,
@@ -14,3 +7,9 @@ public enum Status {
   InJeopardy
 }
 
+public enum EngineerExperience
+{
+    Expert = 1,
+    Junior,
+    Novice
+}
