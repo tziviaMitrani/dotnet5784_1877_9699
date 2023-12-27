@@ -5,7 +5,7 @@ namespace BO;
 /// <summary>
 /// Logical helper entity of a task milestone
 /// </summary>
-/// /// <param name="Id">Unique ID number</param>
+/// <param name="Id">Unique ID number</param>
 /// <param name="Alias">nickname of the task</param>
 /// <param name="CreatedAtDate">Date when the task was added to the system</param>
 /// <param name="Status">calculated</param>

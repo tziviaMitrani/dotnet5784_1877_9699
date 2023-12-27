@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BO;
 
-namespace BO
+/// <summary>
+/// Auxiliary entity engineer-on-task, receiving partial information about an engineer on task.
+/// </summary>
+/// <param name="Id">Unique ID numberof the engineer</param>
+/// <param name="Name">The name of the engineer in the task</param>
+public class EngineerInTask
 {
-    internal class EngineerInTask
-    {
-    }
+    public int Id { get; init; }
+    public required string Name { get; set; }
 }
