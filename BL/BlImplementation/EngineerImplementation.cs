@@ -1,8 +1,10 @@
 ﻿
 namespace BlImplementation;
 using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 
 internal class EngineerImplementation : IEngineer
 {
@@ -32,24 +34,39 @@ internal class EngineerImplementation : IEngineer
     public BO.Engineer? Read(int id)
     {
 
-        DO.Engineer? doStudent = _dal.Engineer.Read(id);
-        if (doStudent == null)
+        DO.Engineer? doEngineer = _dal.Engineer.Read(id);
+        if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
 
         return new BO.Engineer()
         {
             Id = id,
-            Name = doStudent.Name,
-            Email = doStudent.Email,
-            Level = (DO.EngineerExperience)doStudent.Level,
-            BirthDate = doStudent.BirthDate,
-            RegistrationDate = doStudent.RegistrationDate,
-            CurrentYear = (BO.Year)(DateTime.Now.Year - doStudent.RegistrationDate.Year)
-        };
+            Name = doEngineer.Name,
+            Email = doEngineer.Email,
+            Level = (BlTest.BO.EngineerExperience)doEngineer.Level,
+            Cost = doEngineer.Cost,
+            Task = (from t in _dal.Task
+                    let t= _dal.Task.ReadAll()
+                    where t.Id=id
+                    select t)
+
+                    //(from DO.Student doStudent in _dal.Student.ReadAll()
+                    // select new BO.StudentInList
+                    // {
+                    //     Id = doStudent.Id,
+                    //     Name = doStudent.Name,
+                    //     CurrentYear = (BO.Year)(DateTime.Now.Year - doStudent.RegistrationDate.Year)
+                    // });
+
+        /*(from t
+                 let t=_dal.Task.ReadAll() 
+                 where t.Id == id
+                 select t)*/
+    };
     }
 
 
-    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter)
+public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter)
     {
         throw new NotImplementedException();
     }
