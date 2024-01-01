@@ -28,16 +28,30 @@ internal class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        DO.Engineer? doEngineer = _dal.Engineer.Read(id);
+        DateTime now = DateTime.Now;
+        if (doEngineer == null)
+            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
+        DO.Task task = (from DO.Task doTask1 in _dal.Task.ReadAll()
+                     where doTask1.Engineerid == id
+                     select doTask1).FirstOrDefault()!;
+        if(task.StartDate > now)
+        {
+            Delete(id);
+        }
+        else
+        {
+            //throw new BO.BlDoesNotExistException($"Engineer with ID={id} can not remove");
+        }
     }
 
     public BO.Engineer? Read(int id)
     {
-
         DO.Engineer? doEngineer = _dal.Engineer.Read(id);
+        DO.Task? doTask = _dal.Task.Read(id);
+        BO.TaskInEngineer? boTaskInEngineer = (doTask != null) ? new BO.TaskInEngineer { Id = id, Alias = doTask.Alias! } : null;
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
-
         return new BO.Engineer()
         {
             Id = id,
@@ -45,28 +59,12 @@ internal class EngineerImplementation : IEngineer
             Email = doEngineer.Email,
             Level = (BlTest.BO.EngineerExperience)doEngineer.Level,
             Cost = doEngineer.Cost,
-            Task = (from t in _dal.Task
-                    let t= _dal.Task.ReadAll()
-                    where t.Id=id
-                    select t)
-
-                    //(from DO.Student doStudent in _dal.Student.ReadAll()
-                    // select new BO.StudentInList
-                    // {
-                    //     Id = doStudent.Id,
-                    //     Name = doStudent.Name,
-                    //     CurrentYear = (BO.Year)(DateTime.Now.Year - doStudent.RegistrationDate.Year)
-                    // });
-
-        /*(from t
-                 let t=_dal.Task.ReadAll() 
-                 where t.Id == id
-                 select t)*/
-    };
+            Task = boTaskInEngineer!
+        };
     }
 
 
-public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter)
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter)
     {
         throw new NotImplementedException();
     }
