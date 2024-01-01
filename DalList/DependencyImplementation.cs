@@ -40,7 +40,7 @@ internal class DependencyImplementation : IDependency
             return DataSource.Dependencys.Where(filter);
     }
 
-        public void Update(Dependency item)
+    public void Update(Dependency item)
     {
         Delete(item.Id);
         DataSource.Dependencys.Add(item);

@@ -1,7 +1,5 @@
-﻿
-namespace BlImplementation;
+﻿namespace BlImplementation;
 using BlApi;
-using BO;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -66,11 +64,23 @@ internal class EngineerImplementation : IEngineer
 
     public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter)
     {
-        throw new NotImplementedException();
+        try
+        {
+            IEnumerable<BO.Engineer> doEngineer = (IEnumerable<BO.Engineer>)_dal.Engineer.ReadAll();
+            if (doEngineer == null)
+                throw new BO.BlDoesNotExistException("There are no employees who meet the requirements.");
+            return doEngineer.Where(filter!);
+        }catch (Exception ex)
+        {
+            throw new BO.BlDoesNotExistException("There are no employees who meet the requirements.",ex);
+        }
+
+
     }
 
     public void Update(BO.Engineer item)
     {
-        throw new NotImplementedException();
+        Delete(item.Id);
+        Update(item);
     }
 }
