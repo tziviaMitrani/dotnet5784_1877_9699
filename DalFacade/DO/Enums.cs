@@ -1,9 +1,11 @@
 ﻿namespace DO;
 
 public enum EngineerExperience
-{
-    Expert=1,
-    Junior,
-    Novice
+{ 
+    Novice=1,
+    AdvancedBeginner,
+    Competent,
+    Proficient,
+    Expert,
 }
 

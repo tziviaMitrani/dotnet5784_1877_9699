@@ -48,15 +48,6 @@ public class Task
     public EngineerExperience Copmlexity { get; set; }
 
 
-    /*
-    
-       
-        DateTime? ScheduledDate,
-        DateTime? DeadlineDate,
-        DateTime? CompleteDate,
-        string? product,
-        string? Notes,
-        int? Engineerid,
-        int Difficulty*/
+   
 
 }
