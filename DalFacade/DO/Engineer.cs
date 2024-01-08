@@ -15,7 +15,7 @@ public record Engineer
     int Id,
     string Name,
     string? Email=null,
-    EngineerExperience Level = EngineerExperience.Junior,
+    EngineerExperience Level = EngineerExperience.AdvancedBeginner,
     double Cost=0
 
 )

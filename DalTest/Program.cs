@@ -28,7 +28,7 @@ internal class Program
     {
         try
         {
-            Initialization.Do(s_dal); //stage 2
+            Initialization.Do(); //stage 2
             main2();
         }
         catch (Exception ex)
@@ -484,6 +484,7 @@ internal class Program
             ShowTask(task);            
             int _IDEngineer = 0, _Difficulty = 1;
             DateTime _CreatedAtDate = (DateTime)task.CreatedAtDate!, _StartDate, _ScheduledDate, _DeadlineDate, _CompleteDate;
+            TimeSpan _RequiredEffortTime;
             Console.WriteLine("Enter the description\n");
             string? _Description = Console.ReadLine();
             if (_Description is null)
@@ -496,6 +497,9 @@ internal class Program
             DateTime.TryParse(Console.ReadLine(), out _StartDate);
             if (_StartDate == DateTime.MinValue)
                 _StartDate = (DateTime)task.StartDate!;
+            TimeSpan.TryParse(Console.ReadLine(), out _RequiredEffortTime);
+            if (_RequiredEffortTime == TimeSpan.MinValue)
+                _RequiredEffortTime = (TimeSpan)task.RequiredEffortTime!;
             Console.WriteLine("an estimated completion date\n");
             DateTime.TryParse(Console.ReadLine(), out _ScheduledDate);
             if (_ScheduledDate == DateTime.MinValue)
@@ -511,18 +515,18 @@ internal class Program
             Console.WriteLine("a product\n");
             string? _Product = Console.ReadLine();
             if (_Product is null)
-                _Product = task.product;
+                _Product = task.Deliverables;
             Console.WriteLine("notes\n");
             string? _Notes = Console.ReadLine();
             if (_Notes is null)
-                _Notes = task.Notes;
+                _Notes = task.Remarks;
             Console.WriteLine("_ID Engineer\n");
             if (!int.TryParse(Console.ReadLine(), out _IDEngineer))
                 _IDEngineer = (int)task.Engineerid!;
             Console.WriteLine("an engineer Id and difficulty 1-10\n");
             if (!int.TryParse(Console.ReadLine(), out _Difficulty))
-                _Difficulty = task.Difficulty;
-            Task newTask = new(_ID, _Description, _Alias, false, _CreatedAtDate, _StartDate, _ScheduledDate, _DeadlineDate, _CompleteDate, _Product, _Notes, _IDEngineer, _Difficulty);
+                _Difficulty =(int) task.Difficulty;
+            Task newTask = new(_ID, _Description, _Alias, false, _CreatedAtDate, _RequiredEffortTime, _StartDate, _ScheduledDate, _DeadlineDate, _CompleteDate, _Product, _Notes, _IDEngineer, (EngineerExperience) _Difficulty);
             s_dal!.Task.Update(newTask);
         }
         catch (Exception ex)
@@ -577,20 +581,21 @@ internal class Program
             Console.WriteLine("Enter the description,\nan alias,\na production date,\na start date,\n" +
                 "an estimated completion date,\na final date completion,\nan actual end date,\na product,\n" +
                 "notes,\nan engineer Id and difficulty 1-10.\n");
-            int _ID = 0, _Engineerid = 1, _Difficulty = 1;
+            int _ID = 0, _Engineerid = 1 ,_Difficulty = 1;
             string _Description = Console.ReadLine()!;
             string? _Alias = Console.ReadLine();
             DateTime _CreatedAtDate, _ScheduledDate, _DeadlineDate;
-            DateTime _StartDate = DateTime.Now;   
+            DateTime _StartDate = DateTime.Now; 
+            TimeSpan _RequiredEffortTime= TimeSpan.Zero;
             DateTime.TryParse(Console.ReadLine(), out _CreatedAtDate);
-            DateTime.TryParse(Console.ReadLine(), out _ScheduledDate);
+            DateTime.TryParse(Console.ReadLine(), out _ScheduledDate); 
             DateTime.TryParse(Console.ReadLine(), out _DeadlineDate);
             DateTime _CompleteDate = DateTime.MinValue;
             string? _product = Console.ReadLine();
             string? _Notes = Console.ReadLine();
             int.TryParse(Console.ReadLine(), out _Engineerid);
-            int.TryParse(Console.ReadLine(), out _Difficulty);
-            Task task = new(_ID, _Description, _Alias, false, _CreatedAtDate, _StartDate, _ScheduledDate, _DeadlineDate, _CompleteDate, _product, _Notes, _Engineerid, _Difficulty);
+            int.TryParse(Console.ReadLine(), out _Difficulty);   
+            Task task = new(_ID, _Description, _Alias, false, _CreatedAtDate, _RequiredEffortTime,_StartDate, _ScheduledDate, _DeadlineDate, _CompleteDate, _product, _Notes, _Engineerid,(EngineerExperience) _Difficulty);
             int IDShow = s_dal!.Task.Create(task);
             Console.WriteLine("A task with this ID={0} created.", IDShow);
         }
@@ -610,6 +615,6 @@ internal class Program
         Console.WriteLine("ID: {0},\n description: {1},\n alias: {2},\n mileston: {3},\n production date: {4},\n start date: {5},\n" +
             " estimated completion date: {6},\n final date completion: {7},\n actual end date {8},\n" +
             " product: {9},\n notes: {10},\n engineer ID: {11},\n difficulty: {12} \n", item.Id, item.Description, item.Alias, item.Milestone, item.CreatedAtDate, item.StartDate,
-            item.ScheduledDate, item.DeadlineDate, item.CompleteDate, item.product, item.Notes, item.Engineerid, item.Difficulty);
+            item.ScheduledDate, item.DeadlineDate, item.CompleteDate, item.Deliverables, item.Remarks, item.Engineerid, item.Difficulty);
     }
 }

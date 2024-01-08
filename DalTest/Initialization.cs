@@ -1,4 +1,4 @@
-﻿namespace Dal;
+﻿namespace DalTest;
 using DalApi;
 using DO;
 using System;
@@ -29,42 +29,6 @@ public static class Initialization
         "Yair Cohen",
         "Ariela Levin",
         "Dina Klein",
-        "Shira Israelof",
-        "Toiby Braish",
-        "Maly Kibelevitz",
-        "Ruti Salomon",
-        "Dvory Mimran",
-        "Sari Brodi",
-        "Roizy Lefkovit",
-        "Chani Rozinberg",
-        "Ayala Shraber",
-        "Chaya Klain",
-        "Esty Shvartz",
-        "Pnini Cohen",
-        "Giti Leder",
-        "Feigy Haker",
-        "Kaila Avramovitz",
-        "Rachely Vainberg",
-        "Gili Reker",
-        "Zehava Simcha",
-        "Nahama Levi",
-        "Hindi Nachumi",
-        "Leah Segal",
-        "Chaya Toyal",
-        "Debbi Pety",
-        "Anna Coheni",
-        "Efrat Kati",
-        "Devora Tal",
-        "Tova Eliimelech",
-        "Yeudit Avramov",
-        "Sury Shvartz",
-        "Malki Gotfrid",
-        "Sari Brodi",
-        "Roizy Safrin",
-        "Eti Deblinger",
-        "Racheli Bekerman",
-        "Miri Kaner",
-        "Suly Eler"
     };
 
         foreach (var _name in engineerNames)
@@ -85,7 +49,7 @@ public static class Initialization
 
      private static void createTask()
         {
-        for (int i = 1; i <= 101; i++)
+        for (int i = 1; i <= 21; i++)
             {
             int index = s_rand.Next(0, 4);
             string _Description = "";
@@ -93,19 +57,20 @@ public static class Initialization
             Random rnd = new Random();
             DateTime _CreatedAtDate =new DateTime(2023, 1, 1);
             DateTime _ScheduledDate = _CreatedAtDate.AddDays(30 * index);
+            TimeSpan _RequiredEffortTime = new(rnd.Next(300), rnd.Next(24), rnd.Next(60), rnd.Next(60));
             DateTime _DeadlineDate = _ScheduledDate.AddDays(20);
-            int _IdRandom = rnd.Next(0, 40);
-            int _difficulty = s_rand.Next(0, 2);
+            //int _IdRandom = rnd.Next(0, 40);
+            EngineerExperience _difficulty = (EngineerExperience)s_rand.Next(0, 4);
             DateTime _startDate = DateTime.Now;
             DateTime _CompleteDate = DateTime.MinValue;
-            Task newTask = new(0,_Description, null, _Milestone, _CreatedAtDate, _startDate, _ScheduledDate, _DeadlineDate, _CompleteDate, null, null, 1, _difficulty);
+            Task newTask = new(0,_Description, null, _Milestone, _CreatedAtDate, _RequiredEffortTime, _startDate, _ScheduledDate, _DeadlineDate, _CompleteDate, null, null, 1, _difficulty);
             s_dal!.Task.Create(newTask);
         }
      }
 
     private static void createDependency()
     {
-        for (int i = 1; i < 251; i++)
+        for (int i = 1; i < 41; i++)
         {
             Random rnd = new Random();
             int _DependentTask = rnd.Next(1, 101);
@@ -115,12 +80,12 @@ public static class Initialization
         }
     }
 
-    public static void Do(IDal dal)
+    public static void Do()
     {
         //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
         //s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
+        s_dal = Factory.Get; //?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
         createEngineer();
         createTask();
         createDependency();

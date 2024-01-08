@@ -42,7 +42,7 @@ public class Task
     public DateTime? ForecastDate { get; set; }
     public DateTime? DeadlineDate { get; set; }
     public DateTime? CompleteDate { get; set; }
-    public DateTime? Deliverables { get; set; }
+    public required string Deliverables { get; set; }
     public required string Remarks { get; set; }
     public required EngineerInTask Engineer { get; set;}
     public EngineerExperience Copmlexity { get; set; }

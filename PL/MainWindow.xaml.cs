@@ -1,4 +1,5 @@
-﻿using System;
+﻿namespace PL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +13,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.Engineer;
+using PL.Dependency;
 
-namespace PL
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
+
+    private void ButtonEngineer_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerListWindow().Show();
+    }
+    private void ButtonMessageBox(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult mbResulte=
+                    MessageBox.Show("Do you want to reset?","Pay attention",MessageBoxButton.OKCancel,MessageBoxImage.Question);
+        if(mbResulte == MessageBoxResult.OK)
+            DalTest.Initialization.Do();
+    }
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }
