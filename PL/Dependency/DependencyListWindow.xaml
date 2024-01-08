@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Dependency"
         mc:Ignorable="d"
-        Title="EngineerListWindow" Height="450" Width="800">
+        Title="EngineerListWindow" Height="640" Width="800">
+    <!--Extrnal Grid-->
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
     </Grid>
+
 </Window>
