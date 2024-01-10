@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PL.Dependency
 {
     /// <summary>
-    /// Interaction logic for EngineerListWindow.xaml
+    /// Interaction logic for DependencyListWindow.xaml
     /// </summary>
-    public partial class EngineerListWindow : Window
+    public partial class DependencyListWindow : Window
     {
-        public EngineerListWindow()
+        public DependencyListWindow()
         {
             InitializeComponent();
         }

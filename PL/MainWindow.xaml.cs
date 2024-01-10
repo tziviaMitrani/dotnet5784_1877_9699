@@ -37,8 +37,5 @@ public partial class MainWindow : Window
         if(mbResulte == MessageBoxResult.OK)
             DalTest.Initialization.Do();
     }
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
 
-    }
 }

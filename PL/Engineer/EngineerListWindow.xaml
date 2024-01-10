@@ -1,11 +1,13 @@
-﻿<Window x:Class="PL.Engineer.DependencyListWindow"
+﻿<Window x:Class="PL.Engineer.EngineerListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="DependencyListWindow" Height="640" Width="800">
+        Title="EngineerListWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
     <!--Extrnal Grid-->
     <Grid>
 
@@ -27,10 +29,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Label" HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox HorizontalAlignment="Stretch"  Grid.Column="1" VerticalAlignment="Stretch"  />
+            <ComboBox  SelectedValue="{Binding Path=Experience, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionByEngineerExperience" Height="43"  />
+
+
 
         </Grid>
-        <ListView Grid.Row="1" >
+        <ListView  Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

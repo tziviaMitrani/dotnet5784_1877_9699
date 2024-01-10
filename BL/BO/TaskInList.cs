@@ -1,4 +1,4 @@
-﻿using BlTest.BO;
+﻿using BO;
 
 namespace BO;
 /// <summary>

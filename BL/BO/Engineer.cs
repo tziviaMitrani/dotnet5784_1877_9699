@@ -1,4 +1,4 @@
-﻿using BlTest.BO;
+﻿using BO;
 
 namespace BO;
 /// <summary>
@@ -18,6 +18,6 @@ public class Engineer
     public string? Email { get; set; }
     public EngineerExperience Level { get; set; }
     public double Cost { get; set; }
-    public required TaskInEngineer Task { get; init; }
-
+    public  TaskInEngineer? Task { get; init; }
+    public override string ToString() => Tools.ToStringProperty(this);
 }

@@ -1,4 +1,4 @@
-﻿namespace BlTest.BO;
+﻿namespace BO;
 
 public enum Status {
   Unscheduled,
@@ -9,7 +9,10 @@ public enum Status {
 
 public enum EngineerExperience
 {
-    Expert = 1,
-    Junior,
-    Novice
+    Novice = 1,
+    AdvancedBeginner,
+    Competent,
+    Proficient,
+    Expert,
+    All
 }

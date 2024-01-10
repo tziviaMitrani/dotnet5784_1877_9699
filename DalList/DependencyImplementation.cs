@@ -32,7 +32,7 @@ internal class DependencyImplementation : IDependency
     }
 
   
-    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
         if (filter == null)
             return DataSource.Dependencys.Select(item => item);
