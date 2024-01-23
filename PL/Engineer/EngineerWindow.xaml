@@ -12,5 +12,7 @@
             Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Height="NaN" Margin="3"  VerticalAlignment="Center" Width="120"/>
 
         <Button Content="Update" Click="Button_Click" Height="20" Width="60"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="567,86,0,0" VerticalAlignment="Top" Width="163"/>
+        <TextBox HorizontalAlignment="Left" Margin="119,90,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
