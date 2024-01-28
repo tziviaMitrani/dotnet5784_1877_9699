@@ -20,7 +20,10 @@ namespace PL.Engineer
     /// </summary>
     public partial class EngineerWindow : Window
     {
+   
+
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
 
         public BO.Engineer CurrentEngineer
         {
@@ -28,8 +31,10 @@ namespace PL.Engineer
             set { SetValue(EngineerProperty, value); }
         }
 
+        public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
+
         public static readonly DependencyProperty EngineerProperty =
-           DependencyProperty.Register("CurrentEngineer", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerWindow), new PropertyMetadata(null));
+           DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
         public EngineerWindow(int Id=0)
         {
             InitializeComponent();
@@ -49,6 +54,22 @@ namespace PL.Engineer
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

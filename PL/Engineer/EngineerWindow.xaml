@@ -7,12 +7,25 @@
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
-    <Grid>
-        <TextBox Grid.Row="2" Grid.Column="1" 
-            Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Height="NaN" Margin="3"  VerticalAlignment="Center" Width="120"/>
-
-        <Button Content="Update" Click="Button_Click" Height="20" Width="60"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="567,86,0,0" VerticalAlignment="Top" Width="163"/>
-        <TextBox HorizontalAlignment="Left" Margin="119,90,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+    <!--<Window.Resources>
+        <Style x:Key="myFormStyle" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="119,90,0,0"/>
+            <Setter Property="Width" Value="500"/>
+        </Style>
+    </Window.Resources>-->
+    <Grid Margin="-1,0,1,0">
+        <TextBox  Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="NaN" Margin="119,122,0,0"  VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.498,-4.483" TextChanged="TextBox_TextChanged_1"/>
+        <TextBox  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="119,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.498,-4.483" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Left" Margin="119,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Text="{Binding Cost , Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="NaN" Margin="119,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.498,-4.483" TextChanged="TextBox_TextChanged_2"/>
+        <Button Content="{Binding Id, Mode=OneTime}" Click="Button_Click" Height="20" Width="60" RenderTransformOrigin="0.456,10.625" Margin="370,404,370,10"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource Experience}}" 
+                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="119,201,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.505,2.502" SelectionChanged="ComboBox_SelectionChanged" />
+        <Label Content="email" HorizontalAlignment="Left" Margin="578,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.522,0.425"/>
+        <Label Content="name" HorizontalAlignment="Left" Margin="578,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.522,0.425"/>
+        <Label Content="level" HorizontalAlignment="Left" Margin="578,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.339,0.305"/>
+        <Label Content="salary" HorizontalAlignment="Left" Margin="578,241,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="578,86,0,0" VerticalAlignment="Top" Width="40"/>
     </Grid>
 </Window>
