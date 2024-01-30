@@ -20,8 +20,8 @@ namespace PL.Engineer
     /// </summary>
     public partial class EngineerWindow : Window
     {
-   
 
+       
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
@@ -53,29 +53,30 @@ namespace PL.Engineer
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddOrUpdateEngineerDetails(object sender, RoutedEventArgs e)
         {
+            string content = (sender as Button)!.Content.ToString()!;
+            //this.ShowDialog();
+            try
+            {
+                if (content == "Add")
+                {
 
-            
-        }
+                    s_bl.Engineer.Create(CurrentEngineer);
+                    MessageBox.Show("Done", "Engineer successfully added", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    s_bl.Engineer.Update(CurrentEngineer);
+                    MessageBox.Show("Done", "The change has been made", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            }catch (Exception ex)
+            {
 
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
-        {
+            }
+      
+            this.Close();
 
         }
     }

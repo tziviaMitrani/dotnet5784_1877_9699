@@ -48,5 +48,17 @@ namespace PL.Engineer
 
         }
 
+        private void ShowFormUpDate(object sender, RoutedEventArgs e)
+        {
+            BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
+
+            new EngineerWindow(engineer!.Id).Show();
+
+        }
+
+        private void ListView_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

@@ -29,19 +29,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Label" HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox  SelectedValue="{Binding Path=Experience, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionByEngineerExperience" Height="43"  />
-
-
-
+            <ComboBox  SelectedValue="{Binding Path=Experience, Mode=TwoWay}"  ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionByEngineerExperience" Height="43"  />
         </Grid>
-        <ListView  Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
+        <ListView  Margin="5" Grid.Row="1" ItemsSource="{Binding  Path=EngineerList}" MouseDoubleClick="ShowFormUpDate" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ShowFormUpDate"/>
 
     </Grid>
 
