@@ -14,4 +14,6 @@ public class TaskInList
     public required string Description { get; set; }
     public required string Alias { get; set; }
     public Status status { get; set; }
+    public override string ToString() => Tools.ToStringProperty(this);
+
 }

@@ -47,7 +47,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox IsEnabled= "False"  Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="0"  HorizontalAlignment="Stretch" />
+            <TextBox IsEnabled="{Binding Id, Mode=OneTime, Converter ={StaticResource ConvertIdToIsEnabledKey}}"  Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="0"  HorizontalAlignment="Stretch" />
             <TextBox  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="1"  HorizontalAlignment="Stretch" />
             <TextBox Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"  Grid.Row="2" HorizontalAlignment="Stretch" />
             <TextBox  Text="{Binding Cost , Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="4"  HorizontalAlignment="Stretch"/>

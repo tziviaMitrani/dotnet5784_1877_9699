@@ -39,7 +39,7 @@ public static class Initialization
             while (s_dal!.Engineer.Read(_id) != null);
             string _ename = _name;
             string _email = _ename + "@gmail.com";
-            EngineerExperience _level = (EngineerExperience)s_rand.Next(1, 4);
+            EngineerExperience _level = (EngineerExperience)s_rand.Next(1, 6);
             int _cost = s_rand.Next(MIN_C, MAX_C);
             Engineer newEngineer = new(_id, _name, _email, _level, _cost);
             s_dal!.Engineer.Create(newEngineer);

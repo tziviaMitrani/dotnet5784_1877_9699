@@ -73,7 +73,7 @@ namespace PL.Engineer
 
             }catch (Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
       
             this.Close();
