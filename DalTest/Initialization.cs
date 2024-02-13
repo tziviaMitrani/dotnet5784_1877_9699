@@ -53,17 +53,20 @@ public static class Initialization
             {
             int index = s_rand.Next(0, 4);
             string _Description = "";
-            bool _Milestone = false;
+            //bool _Milestone = false;
             Random rnd = new Random();
             DateTime _CreatedAtDate =new DateTime(2023, 1, 1);
             DateTime _ScheduledDate = _CreatedAtDate.AddDays(30 * index);
             TimeSpan _RequiredEffortTime = new(rnd.Next(300), rnd.Next(24), rnd.Next(60), rnd.Next(60));
+            DateTime _startDate = DateTime.Now;
+            //
+            DateTime _ForecastDate = _startDate.AddDays(16);
+            //
             DateTime _DeadlineDate = _ScheduledDate.AddDays(20);
             //int _IdRandom = rnd.Next(0, 40);
             EngineerExperience _difficulty = (EngineerExperience)s_rand.Next(1, 5);
-            DateTime _startDate = DateTime.Now;
             DateTime _CompleteDate = DateTime.MinValue;
-            Task newTask = new(0,_Description, null, _Milestone, _CreatedAtDate, _RequiredEffortTime, _startDate, _ScheduledDate, _DeadlineDate, _CompleteDate, null, null, 1, _difficulty);
+            Task newTask = new(0,_Description, null, /*_Milestone,*/ _CreatedAtDate, _RequiredEffortTime, _startDate, _ScheduledDate, _ForecastDate, _DeadlineDate, _CompleteDate, null, null, 1, _difficulty);
             s_dal!.Task.Create(newTask);
         }
      }

@@ -18,7 +18,7 @@ namespace BO;
 /// <param name="Dependencies">Dependency of task in lisl</param>
 /// <param name="CreatedAtDate">Date when the task was added to the system</param>
 /// <param name="StartDate">Start Date of the task</param>
-/// <param name="ScheduledDate">he planned start date</param>
+/// <param name="ScheduledDate">the planned start date</param>
 /// <param name="ForecastDate"> calcualed planned completion date</param>
 /// <param name="DeadlineDate">the latest complete date</param>
 /// <param name="CompleteDate">real completion date</param>
@@ -34,9 +34,9 @@ public class Task
     public required string  Description { get; set; }
     public required string Alias { get; set; }
     public DateTime? CreatedAtDate { get; set; }
-    public BO.Status status { get; set; }
-    public required List<TaskInList> Dependencies { get; set; }
-    public required BO.MilestoneInTask Milestone { get; set; }
+    public BO.Status Status { get; set; }
+    public required List<BO.TaskInList> Dependencies { get; set; }
+    //public required BO.MilestoneInTask Milestone { get; set; }
     public required DateTime? StartDate { get; set; }
     public DateTime? ScheduledDate { get; set; }
     public DateTime? ForecastDate { get; set; }

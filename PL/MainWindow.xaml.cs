@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.Engineer;
-using PL.Dependency;
+using PL.Task;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -29,6 +29,10 @@ public partial class MainWindow : Window
     private void ButtonEngineer_Click(object sender, RoutedEventArgs e)
     {
         new EngineerListWindow().Show();
+    }
+    private void ButtonTask_Click(object sender, RoutedEventArgs e)
+    {
+        new TaskListWindow().Show();
     }
     private void ButtonMessageBox(object sender, RoutedEventArgs e)
     {

@@ -23,11 +23,12 @@ public record Task
         int Id,
         string Description,
         string? Alias,
-        bool Milestone,
+        //bool Milestone,
         DateTime? CreatedAtDate,//CreatedAtDate<-ProductionDate
         TimeSpan? RequiredEffortTime,
         DateTime? StartDate,
         DateTime? ScheduledDate,//ScheduledDate<-EstimatedCompletionDate
+        DateTime? ForecastDate,
         DateTime? DeadlineDate,//DeadlineDate<-FinalDateCompletion
         DateTime? CompleteDate,//CompleteDate<-ActualEndDate
         string? Deliverables,//product,
@@ -37,7 +38,7 @@ public record Task
 )
 
 {
-    public Task() : this(0, "", "", false, null,null, null, null, null, null, "", "", 0, 0) { } //empty ctor for stage 3
+    public Task() : this(0, "", "",  null,null, null,null, null, null, null, "", "", 0, 0) { } //empty ctor for stage 3
 }
 
 

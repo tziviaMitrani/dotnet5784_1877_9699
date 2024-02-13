@@ -61,9 +61,6 @@ namespace PL.Engineer
       
             new EngineerWindow().ShowDialog();
         }
-        private void ListView_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+        
     }
 }

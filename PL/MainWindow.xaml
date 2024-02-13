@@ -8,8 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 
-        <Button Content="Handle Engineer"  HorizontalAlignment="Left" Margin="161,78,0,0" VerticalAlignment="Top" Click="ButtonEngineer_Click" Height="72" Width="130"/>
-        <Button Content="init DB"  HorizontalAlignment="Left" Margin="489,78,0,0" VerticalAlignment="Top" Click="ButtonMessageBox" Height="72" Width="130"/>
+        <Button Content="Handle Engineer"  HorizontalAlignment="Left" Margin="79,145,0,0" VerticalAlignment="Top" Click="ButtonEngineer_Click" Height="72" Width="130"/>
+        <Button Content="Handle Task"  HorizontalAlignment="Left" Margin="324,145,0,0" VerticalAlignment="Top" Click="ButtonTask_Click" Height="72" Width="130" />
+        <Button Content="init DB"  HorizontalAlignment="Left" Margin="602,145,0,0" VerticalAlignment="Top" Click="ButtonMessageBox" Height="72" Width="130"/>
 
 
     </Grid>

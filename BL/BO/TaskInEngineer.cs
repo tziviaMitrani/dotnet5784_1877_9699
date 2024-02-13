@@ -6,8 +6,14 @@
 /// <param name="Alias">The alias of the engineer in the task</param>
 public class TaskInEngineer
 {
+    public TaskInEngineer(int id, string? alias)
+    {
+        Id = id;
+        Alias = alias!;
+    }
+
     public int Id { get; init; }
-    public required string Alias { get; set; }
+    public string Alias { get; set; }
     public override string ToString() => Tools.ToStringProperty(this);
 
 }

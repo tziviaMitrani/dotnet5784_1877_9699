@@ -7,7 +7,7 @@
         <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey" />
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:ConvertIdToIsEnabled x:Key="ConvertIdToIsEnabledKey"/>
-
+        <local:TaskStatusCollection x:Key="TaskStatusCollectionKey"/>
     </Application.Resources>
 </Application>
 

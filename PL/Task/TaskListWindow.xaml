@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="640" Width="800">
+        Title="TaskListWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--Extrnal Grid-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
-
         </Grid.RowDefinitions>
+
 
 
 
@@ -26,10 +27,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Label" HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox HorizontalAlignment="Stretch"  Grid.Column="1" VerticalAlignment="Stretch"  />
+            <ComboBox  SelectedValue="{Binding Path=Status, Mode=TwoWay}"  ItemsSource="{Binding Source={StaticResource TaskStatusCollectionKey}}" Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionByTaskStatus" Height="43"  />
 
         </Grid>
-        <ListView Grid.Row="1" >
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding  Path=TaskList}" MouseDoubleClick="ShowFormUpdate" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

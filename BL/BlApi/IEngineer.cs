@@ -7,7 +7,4 @@ public interface IEngineer
     public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer? , bool>? filter=null);//Reads all entity objects
     public void Update(BO.Engineer item);//Updates entity object
     public void Delete(int id);//Deletes an object by its Id
-    //public BO.Engineer? Read(Func<BO.Engineer, bool> filter); //Reads entity object by its ID 
-    
-
 }

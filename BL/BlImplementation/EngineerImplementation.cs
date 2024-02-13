@@ -9,7 +9,7 @@ internal class EngineerImplementation : IEngineer
 
     public int Create(BO.Engineer boEngineer)
     {
-        DO.Engineer doEngineer = new 
+        DO.Engineer doEngineer = new
             (boEngineer.Id, boEngineer.Name!, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
         try
         {
@@ -30,7 +30,7 @@ internal class EngineerImplementation : IEngineer
         DateTime now = DateTime.Now;
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
-            DO.Task task = (from DO.Task doTask1 in _dal.Task.ReadAll()
+        DO.Task task = (from DO.Task doTask1 in _dal.Task.ReadAll()
                         where doTask1.Engineerid == id
                         select doTask1).FirstOrDefault()!;
         if (task.StartDate > now)
@@ -47,7 +47,7 @@ internal class EngineerImplementation : IEngineer
     {
         DO.Engineer? doEngineer = _dal.Engineer.Read(id);
         DO.Task? doTask = _dal.Task.Read(id);
-        BO.TaskInEngineer? boTaskInEngineer = (doTask != null) ? new BO.TaskInEngineer { Id = id, Alias = doTask.Alias! } : null;
+        BO.TaskInEngineer? boTaskInEngineer = (doTask != null) ? new(doTask.Id, doTask.Alias) : null;
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
         return new BO.Engineer()
@@ -62,15 +62,15 @@ internal class EngineerImplementation : IEngineer
     }
 
 
-    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter=null)
+    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer?, bool>? filter = null)
     {
         try
         {
             IEnumerable<DO.Engineer> doEngineers = _dal.Engineer.ReadAll(filter)!;
             if (doEngineers == null)
                 throw new BO.BlDoesNotExistException("There are no engineer who meet the requirements.");
-            IEnumerable<BO.Engineer> boEngineers = from doEngineer  in doEngineers
-                                                  select Read(doEngineer.Id);
+            IEnumerable<BO.Engineer> boEngineers = from doEngineer in doEngineers
+                                                   select Read(doEngineer.Id);
             return boEngineers;
         }
         catch (Exception ex)
@@ -81,26 +81,21 @@ internal class EngineerImplementation : IEngineer
 
     }
 
-    public void Update(BO.Engineer item)
+    public void Update(BO.Engineer boEngineer)
     {
-        Delete(item.Id);
-        Update(item);
+        DO.Engineer doEngineer = new
+                    (boEngineer.Id, boEngineer.Name!, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+        try
+        {
+            _dal.Engineer.Update(doEngineer);
+        }
+        catch
+        {
+            throw new BO.BlDoesNotExistException($"Engineer number {boEngineer.Id} dos't exist");
+        }
     }
 }
 
 
-/*      DO.Task? doTask = _dal.Task.Read(Id)
-BO.TaskInEngineer? boTaskInEngineer = (doTask != null) ? new BO.TaskInEngineer { Id = id, Alias = doTask.Alias! } : null;
-
-IEnumerable<BO.Engineer> doEngineers = from doEngineer in _dal.Engineer.ReadAll()
-                                       select new BO.Engineer()
-                                       {
-                                           Id = doEngineer.Id,
-                                           Name = doEngineer.Name,
-                                           Email = doEngineer.Email,
-                                           Level = (BlTest.BO.EngineerExperience)doEngineer.Level,
-                                           Cost = doEngineer.Cost,
-
-                                       };*/
 
 
