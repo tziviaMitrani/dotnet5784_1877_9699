@@ -5,8 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="450" Width="800">
+        Title="TaskWindow" Height="450" Width="800"
+        DataContext="{Binding CurrentTask,RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="190*" />
+            <ColumnDefinition Width="190*" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="350*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="330" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="ID" HorizontalAlignment="Left"  Grid.Row="0"/>
+            <Label Content="description" HorizontalAlignment="Left"   Grid.Row="1"/>
+            <Label Content="alias" HorizontalAlignment="Left"   Grid.Row="2"/>
+            <Label Content="created at date" HorizontalAlignment="Left"   Grid.Row="3"/>
+            <Label Content="status" HorizontalAlignment="Left"  Grid.Row="4"/>
+            <Label Content="start at date" HorizontalAlignment="Left"   Grid.Row="5"/>
+            <Label Content="scheduled at date" HorizontalAlignment="Left" Grid.Row="6"/>
+            <Label Content="forecast at date" HorizontalAlignment="Left" Grid.Row="7"/>
+            <Label Content="deadline date" HorizontalAlignment="Left" Grid.Row="8"/>
+            <Label Content="complete at date" HorizontalAlignment="Left" Grid.Row="9"/>
+            <Label Content="deliverables" HorizontalAlignment="Left" Grid.Row="10"/>
+            <Label Content="remarks" HorizontalAlignment="Left" Grid.Row="11"/>
+            <Label Content="engineer" HorizontalAlignment="Left"  Grid.Row="12"/>
+            <Label Content="complexity" HorizontalAlignment="Left" Height="30"  Grid.Row="13"/>
+
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Width="Auto"  VerticalAlignment="Center" Height="320"  >
+            <Grid.RowDefinitions >
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox IsEnabled="False"  Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="0"  HorizontalAlignment="Stretch" />
+            <TextBox  Text="{Binding Description, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="1"  HorizontalAlignment="Stretch" />
+            <TextBox Text="{Binding Alias, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"  Grid.Row="2" HorizontalAlignment="Stretch" />
+            <DatePicker HorizontalAlignment="Stretch"  Grid.Row="3" VerticalAlignment="Top"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource TaskStatusCollectionKey}}" 
+                      SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Row="4" HorizontalAlignment="Stretch" />
+            <DatePicker SelectedDate="{Binding StartDate,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Stretch"  Grid.Row="5" VerticalAlignment="Top"/>
+            <DatePicker SelectedDate="{Binding ScheduledDate,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Stretch"  Grid.Row="6" VerticalAlignment="Top"/>
+            <DatePicker SelectedDate="{Binding ForecastDate,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Stretch"  Grid.Row="7" VerticalAlignment="Top"/>
+            <DatePicker SelectedDate="{Binding DeadlineDate,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Stretch"  Grid.Row="8" VerticalAlignment="Top"/>
+            <DatePicker SelectedDate="{Binding CompleteDate,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" HorizontalAlignment="Stretch"  Grid.Row="9" VerticalAlignment="Top"/>
+            <TextBox  Text="{Binding Deliverables, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="10"  HorizontalAlignment="Stretch" />
+            <TextBox  Text="{Binding Remarks, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="11"  HorizontalAlignment="Stretch" />
+            <TextBox  Text="{Binding Engineer, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="12"  HorizontalAlignment="Stretch" />
+            <!--<DatePicker  Text="{Binding CreatedAtDate, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"Grid.Row="3" HorizontalAlignment="Stretch" />-->
+            <ComboBox ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
+                      SelectedValue="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Row="13" HorizontalAlignment="Stretch" />
+
+        </Grid>
+        <Button Content="{Binding Id, Mode=OneTime, Converter ={StaticResource ConverIdToContentKey}}" Click="AddOrUpdateTaskDetails" Height="20" Width="60" RenderTransformOrigin="0.456,10.625" Margin="370,14,370,14" Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

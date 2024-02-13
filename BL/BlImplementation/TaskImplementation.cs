@@ -9,11 +9,12 @@ internal class TaskImplementation : ITask
 
     public int Create(BO.Task boTask)
     {
-        if (boTask.Id <= 0 || boTask.Alias == "")
+        if ( boTask.Alias == "")
             throw new Exception("task details are not valid");
         try
         {
             DO.Task doTask = ConversionToDo(boTask);
+            _dal.Task.Create(doTask);
         }
         catch
         {
@@ -75,10 +76,11 @@ internal class TaskImplementation : ITask
 
     private BO.Status SetStatus(DO.Task doTask)
     {
-        return (BO.Status)(doTask.CreatedAtDate is null ? 0
-                            : doTask.StartDate is null ? 1
-                            : doTask.CompleteDate is null ? 2
-                            : 3);
+
+        return (BO.Status)(doTask.CreatedAtDate is null ? 1
+                            : doTask.StartDate is null ? 2
+                            : doTask.CompleteDate is null ? 3
+                            : 4);
     }
 
     private BO.Task ConversionToBo(DO.Task doTask)
@@ -98,8 +100,8 @@ internal class TaskImplementation : ITask
             CompleteDate = doTask.CompleteDate,
             Deliverables = doTask.Deliverables!,
             Remarks = doTask.Remarks!,
-            Engineer = null,
-            Copmlexity = (BO.EngineerExperience)doTask.Difficulty
+            Engineer = new BO.EngineerInTask(),
+            Complexity = (BO.EngineerExperience)doTask.Difficulty
         };
     }
     private DO.Task ConversionToDo(BO.Task boTask)
@@ -119,7 +121,7 @@ internal class TaskImplementation : ITask
                boTask.Deliverables,
                boTask.Remarks,
                boTask.Engineer?.Id,
-               (DO.EngineerExperience)boTask.Copmlexity);
+               (DO.EngineerExperience)boTask.Complexity);
     }
 }
 

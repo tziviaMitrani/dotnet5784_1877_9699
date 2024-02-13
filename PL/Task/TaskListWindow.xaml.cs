@@ -46,8 +46,7 @@ namespace PL.Task
             var temp = Status == BO.Status.All ?
             s_bl?.Task.ReadAll() :
             s_bl?.Task.ReadAll(item => (int)item!.Status == (int)Status);
-        TaskList = temp == null ? new () : new (temp);
-
+            TaskList = temp == null ? new () : new (temp); 
         }
 
     private void ShowFormUpdate(object sender, RoutedEventArgs e)

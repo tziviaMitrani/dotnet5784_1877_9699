@@ -1,4 +1,4 @@
-﻿using BO;
+﻿/*using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,3 +15,4 @@ public interface IMilestone
     public Milestone Update(BO.Milestone item);//Updates entity object
     //public void Delete(int id);//Deletes an object by its Id
 }
+*/

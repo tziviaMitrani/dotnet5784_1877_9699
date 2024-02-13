@@ -41,7 +41,7 @@ namespace PL.Task
                     Deliverables="",
                     Remarks = "",
                     Engineer = new BO.EngineerInTask(),
-                    Copmlexity = 0
+                    Complexity = 0
                 };
             else
                 CurrentTask = s_bl.Task.Read(Id)!;

@@ -45,6 +45,6 @@ public class Task
     public required string Deliverables { get; set; }
     public required string Remarks { get; set; }
     public required BO.EngineerInTask Engineer { get; set;}
-    public EngineerExperience Copmlexity { get; set; }
+    public EngineerExperience Complexity { get; set; }
     public override string ToString()=>Tools.ToStringProperty(this);
 }

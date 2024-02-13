@@ -1,7 +1,7 @@
 ﻿namespace BO;
 
 public enum Status {
-  Unscheduled,
+  Unscheduled=1,
   Scheduled,
   OnTrack,
   InJeopardy,
