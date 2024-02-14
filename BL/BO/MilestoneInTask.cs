@@ -1,4 +1,4 @@
-﻿
+﻿/*
 using BO;
 
 namespace BO;
@@ -19,4 +19,4 @@ public class MilestoneInTask
     public Status status { get; set; }
     public double CompletionPercentage { get; set; }
 
-}
+}*/

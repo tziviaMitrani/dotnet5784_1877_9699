@@ -1,5 +1,5 @@
 ﻿namespace BO;
-
+// Enum for the task status.
 public enum Status {
   Unscheduled=1,
   Scheduled,
@@ -8,6 +8,7 @@ public enum Status {
   All
 }
 
+// Enum for the engineer experience.
 public enum EngineerExperience
 {
     Novice = 1,

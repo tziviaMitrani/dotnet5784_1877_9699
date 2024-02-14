@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 namespace BO;
 using System.Reflection.Metadata.Ecma335;
-
+//Tools- converts the data to print form on the screen
 static class Tools
 {
     public static string ToStringProperty<T>(T item)

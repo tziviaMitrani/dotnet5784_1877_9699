@@ -18,8 +18,8 @@ public class TaskInList
         Status = status;
     }
     public int Id { get; init; }
-    public required string Description { get; set; }
-    public required string Alias { get; set; }
+    public string Description { get; set; }
+    public string Alias { get; set; }
     public BO.Status Status { get; set; }
     public override string ToString() => Tools.ToStringProperty(this);
 

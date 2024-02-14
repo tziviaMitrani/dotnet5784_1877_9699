@@ -22,6 +22,7 @@ namespace PL.Task
     /// </summary>
     public partial class TaskListWindow : Window
     {
+        
         public TaskListWindow()
         {
             InitializeComponent();

@@ -1,7 +1,9 @@
 ﻿namespace Dal;
 
 internal static class DataSource
-{
+{/// <summary>
+/// 
+/// </summary>
     internal static class Config
     {
         internal const int startTaskId = 1;

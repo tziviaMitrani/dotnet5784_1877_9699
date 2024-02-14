@@ -2,7 +2,7 @@
 
 namespace BO;
 /// <summary>
-/// Engineer main logical entity for Engineer List and Engineer Details screens.
+/// Engineer main logical entity for Engineer Details screens.
 /// </summary>
 /// <param name="Id">Unique ID number</param>
 /// <param name="Name">The name of the engineer</param>

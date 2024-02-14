@@ -11,9 +11,8 @@
 public record Dependency
 (
     int Id,
-    int? DependentTask,//DependentTask<-IdDependTask
-    int? DependsOnTask//DependsOnTask<-IdPreviousDependTask
-
+    int? DependentTask,
+    int? DependsOnTask
 )
 {
     public Dependency() : this(0, 0, 0) { } //empty ctor for stage 3
