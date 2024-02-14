@@ -4,8 +4,7 @@ public enum Status {
   Unscheduled=1,
   Scheduled,
   OnTrack,
-  InJeopardy,
-  All
+  InJeopardy
 }
 
 // Enum for the engineer experience.

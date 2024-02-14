@@ -1,4 +1,5 @@
 ﻿namespace DO;
+
 //Enum for engineer experience
 public enum EngineerExperience
 { 
@@ -7,5 +8,6 @@ public enum EngineerExperience
     Competent,
     Proficient,
     Expert,
+    All
 }
 

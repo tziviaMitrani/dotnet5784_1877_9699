@@ -1,5 +1,4 @@
-﻿using BO;
-using PL.Engineer;
+﻿using PL.Engineer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,35 +25,44 @@ namespace PL.Task
         public TaskListWindow()
         {
             InitializeComponent();
-            var task = s_bl?.Task.ReadAll();
-            TaskList = task == null ? new() : new(task);
+            var taskInList = s_bl?.TaskInList.ReadAll();
+            TaskList = taskInList == null ? new() : new(taskInList);
         }
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-   
 
-        public ObservableCollection<BO.Task> TaskList
+        public ObservableCollection<BO.TaskInList> TaskList
         {
-            get { return (ObservableCollection<BO.Task>)GetValue(TaskListProperty); }
+            get { return (ObservableCollection<BO.TaskInList>)GetValue(TaskListProperty); }
             set { SetValue(TaskListProperty, value); }
         }
 
         public static readonly DependencyProperty TaskListProperty =
-            DependencyProperty.Register("TaskList", typeof(ObservableCollection<BO.Task>), typeof(TaskListWindow), new PropertyMetadata(null));
-        public BO.Status Status { get; set; } = BO.Status.All;
+            DependencyProperty.Register("TaskList", typeof(ObservableCollection<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
+        public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
 
         private void ComboBox_SelectionByTaskStatus(object sender, SelectionChangedEventArgs e)
         {
-            var temp = Status == BO.Status.All ?
-            s_bl?.Task.ReadAll() :
-            s_bl?.Task.ReadAll(item => (int)item!.Status == (int)Status);
-            TaskList = temp == null ? new () : new (temp); 
+            var temp = Experience == BO.EngineerExperience.All ?
+            s_bl?.TaskInList.ReadAll().OrderBy(item => item.Id) :
+            s_bl?.TaskInList.ReadAll(item => (int)item!.Difficulty == (int)Experience).OrderBy(item => item.Id);
+            TaskList = temp == null ? new() : new(temp);
         }
 
-    private void ShowFormUpdate(object sender, RoutedEventArgs e)
+
+        //private void ComboBox_SelectionByEngineerExperience(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var temp = Experience == BO.EngineerExperience.All ?
+        //    s_bl?.Task.ReadAll() :
+        //    s_bl?.Task.ReadAll(item => (int)item!.Difficulty == (int)Experience);
+
+        //}
+        private void ShowFormUpdate(object sender, RoutedEventArgs e)
         {
-            BO.Task? task = (sender as ListView)?.SelectedItem as BO.Task;
+            BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
 
             new TaskWindow(task!.Id).ShowDialog();
+            var taskInList = s_bl?.TaskInList.ReadAll();
+            TaskList = taskInList == null ? new() : new(taskInList);
 
         }
 
@@ -62,6 +70,8 @@ namespace PL.Task
         {
 
             new TaskWindow().ShowDialog();
+            var taskInList = s_bl?.TaskInList.ReadAll();
+            TaskList = taskInList == null ? new() : new(taskInList);
         }
 
     }

@@ -18,27 +18,29 @@ internal class TaskInListImplementation: ITaskInList
 
     public BO.TaskInList? Read(int id)
     {
+        try
+        {
         DO.Task? doTask = _dal.Task.Read(id);
         return doTask == null
             ? throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist")
-            : new BO.TaskInList(id, doTask.Description, doTask.Alias!,SetStatus(doTask));
+            : new BO.TaskInList(id, doTask.Description, doTask.Alias!,SetStatus(doTask), (BO.EngineerExperience)doTask.Difficulty);
+        }
+        catch (BO.BlDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Task  does Not exist", ex);
+        }
+
+
     }
 
-    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.TaskInList?, bool>? filter = null)
+    public IEnumerable<BO.TaskInList> ReadAll(Func<DO.Task?, bool>? filter = null)
     {
-        try
-        {
-            Func<DO.Task, bool> filter2 = (Func<DO.Task, bool>)filter!;
 
-            IEnumerable<DO.Task> doAllTasks = _dal.Task.ReadAll(filter2)!;
-            return from doTask in doAllTasks
-                   select Read(doTask.Id);
-            //new BO.TaskInList(doTask.Id, doTask.Description, doTask.Alias!, SetStatus(doTask));
-        }
-        catch
-        {
-            throw new BO.BlDoesNotExistException("There are no tasks who meet the requirements.");
-        }
-
+        IEnumerable<DO.Task> doAllTasks = _dal.Task.ReadAll(filter)!;
+        IEnumerable<BO.TaskInList> alltasks = from task in doAllTasks
+                                     select Read(task.Id);
+        return alltasks;
     }
+
+   
 }

@@ -31,7 +31,7 @@ namespace PL.Task
                     Alias = "",
                     //Milestone = null,
                     CreatedAtDate = null,
-                    Status = BO.Status.All,
+                    Status = BO.Status.Unscheduled,
                     Dependencies = new List<BO.TaskInList>() { },
                     ForecastDate = null,
                     StartDate = null,
@@ -57,7 +57,7 @@ namespace PL.Task
             set { SetValue(TaskProperty, value); }
         }
 
-        public BO.Status Status { get; set; } = BO.Status.All;
+        public BO.Status Status { get; set; } = BO.Status.Unscheduled;
 
         public static readonly DependencyProperty TaskProperty =
            DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
@@ -82,10 +82,10 @@ namespace PL.Task
                 }
 
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch (BO.BlDoesNotExistException ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch (BO.BlNullPropertyException ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch { MessageBox.Show("Oh no, something is wrong"); }
 
             this.Close();
 

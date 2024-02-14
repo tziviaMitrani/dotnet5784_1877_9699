@@ -1,4 +1,6 @@
-﻿namespace BlImplementation;
+﻿using DalApi;
+
+namespace BlImplementation;
 using BlApi;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -13,6 +15,13 @@ internal class EngineerImplementation : IEngineer
             (boEngineer.Id, boEngineer.Name!, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
         try
         {
+            if (boEngineer.Task is not null && boEngineer.Task.Id != 0)
+                try
+                {
+                    _dal.Task.Update(_dal.Task.Read(boEngineer.Task.Id)! with { Engineerid = boEngineer.Id });
+                }
+                catch (DO.DalDoesNotExistException ex)
+                { throw new BO.BlDoesNotExistException($"Task with ID={boEngineer.Id} does not exist", ex); }
             int idEng = _dal.Engineer.Create(doEngineer);
             return idEng;
         }
@@ -23,23 +32,26 @@ internal class EngineerImplementation : IEngineer
         }
     }
 
-
     public void Delete(int id)
     {
-        DO.Engineer? doEngineer = _dal.Engineer.Read(id);
-        DateTime now = DateTime.Now;
-        if (doEngineer == null)
-            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
-        DO.Task task = (from DO.Task doTask1 in _dal.Task.ReadAll()
-                        where doTask1.Engineerid == id
-                        select doTask1).FirstOrDefault()!;
-        if (task.StartDate > now)
+        try
         {
-            Delete(id);
+            DO.Engineer? doEngineer = _dal.Engineer.Read(id);
+            DO.Task task = (from DO.Task doTask1 in _dal.Task.ReadAll()
+                            where doTask1.Engineerid == id
+                            select doTask1).FirstOrDefault()!;
+            if (task is null)
+            {
+                _dal.Engineer.Delete(id);
+            }
+            else
+            {
+                throw new BO.BlDoesNotExistException($"Engineer with ID={id} can not remove");
+            }
         }
-        else
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Engineer with ID={id} can not remove");
+            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist", ex);
         }
     }
 
@@ -50,6 +62,11 @@ internal class EngineerImplementation : IEngineer
         BO.TaskInEngineer? boTaskInEngineer = (doTask != null) ? new(doTask.Id, doTask.Alias) : null;
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
+
+        IEnumerable<DO.Task> allTasks = _dal.Task.ReadAll()!;
+        DO.Task? engineersTask = (from task in allTasks
+                                  where task.Engineerid == id
+                                  select task).FirstOrDefault();
         return new BO.Engineer()
         {
             Id = id,
@@ -57,7 +74,8 @@ internal class EngineerImplementation : IEngineer
             Email = doEngineer.Email,
             Level = (BO.EngineerExperience)doEngineer.Level,
             Cost = doEngineer.Cost,
-            Task = boTaskInEngineer!
+            /*Task = new BO.TaskInEngineer(0,"")*/
+            Task = engineersTask is not null ? new BO.TaskInEngineer(engineersTask.Id, engineersTask.Alias) : new BO.TaskInEngineer(0, ""),
         };
     }
 
@@ -83,16 +101,25 @@ internal class EngineerImplementation : IEngineer
 
     public void Update(BO.Engineer boEngineer)
     {
+
+        if (boEngineer.Task is not null&& boEngineer.Task.Id != 0)
+            try
+            {
+                DO.Task? task = _dal.Task.Read(boEngineer.Task.Id);
+                if (task is null)
+                {
+                    throw new BO.BlDoesNotExistException($"Task  dos't exist");
+                }
+                
+                _dal.Task.Update(task! with { Engineerid = boEngineer.Id });
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException($"Engineer number {boEngineer.Id} dos't exist",ex);
+            }
         DO.Engineer doEngineer = new
-                    (boEngineer.Id, boEngineer.Name!, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
-        try
-        {
-            _dal.Engineer.Update(doEngineer);
-        }
-        catch
-        {
-            throw new BO.BlDoesNotExistException($"Engineer number {boEngineer.Id} dos't exist");
-        }
+           (boEngineer.Id, boEngineer.Name!, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+        _dal.Engineer.Update(doEngineer);
     }
 }
 

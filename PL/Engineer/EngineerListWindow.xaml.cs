@@ -24,35 +24,37 @@ namespace PL.Engineer
         public EngineerListWindow()
         {
             InitializeComponent();
-            var engineer = s_bl?.Engineer.ReadAll();
-            EngineerList = engineer == null ? new() : new(engineer);
+            var engineerInList = s_bl?.EngineerInList.ReadAll();
+            EngineerList = engineerInList == null ? new() : new(engineerInList);
 
         }
 
-        public ObservableCollection<BO.Engineer> EngineerList
+        public ObservableCollection<BO.EngineerInList> EngineerList
         {
-            get { return (ObservableCollection<BO.Engineer>)GetValue(EngineerListProperty); }
+            get { return (ObservableCollection<BO.EngineerInList>)GetValue(EngineerListProperty); }
             set { SetValue(EngineerListProperty, value); }
         }
 
         public static readonly DependencyProperty EngineerListProperty =
-            DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.EngineerInList>), typeof(EngineerListWindow), new PropertyMetadata(null));
         public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
 
         private void ComboBox_SelectionByEngineerExperience(object sender, SelectionChangedEventArgs e)
         {
             var temp = Experience == BO.EngineerExperience.All ?
-            s_bl?.Engineer.ReadAll() :
-            s_bl?.Engineer.ReadAll(item => (int)item!.Level == (int)Experience);
+            s_bl?.EngineerInList.ReadAll().OrderBy(item=>item.Id) :
+            s_bl?.EngineerInList.ReadAll(item => (int)item!.Level == (int)Experience).OrderBy(item => item.Id);
             EngineerList = temp == null ? new() : new(temp);
 
         }
 
         private void ShowFormUpdate(object sender, RoutedEventArgs e)
         {
-            BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
+            BO.EngineerInList? engineer = (sender as ListView)?.SelectedItem as BO.EngineerInList;
 
             new EngineerWindow(engineer!.Id).ShowDialog();
+            var engineerInList = s_bl?.EngineerInList.ReadAll();
+            EngineerList = engineerInList == null ? new() : new(engineerInList);
 
         }
 
@@ -60,6 +62,8 @@ namespace PL.Engineer
         {
       
             new EngineerWindow().ShowDialog();
+            var engineerInList = s_bl?.EngineerInList.ReadAll();
+            EngineerList = engineerInList == null ? new() : new(engineerInList);
         }
         
     }

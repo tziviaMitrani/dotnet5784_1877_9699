@@ -5,14 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="640" Width="800"
+        Title="TaskListWindow" Height="700" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--Extrnal Grid-->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="101*"/>
+            <ColumnDefinition Width="299*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -20,24 +23,24 @@
 
 
         <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <Grid Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2" Margin="0,0,0,531" Grid.RowSpan="2">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
-            <ComboBox  SelectedValue="{Binding Path=Status, Mode=TwoWay}"  ItemsSource="{Binding Source={StaticResource TaskStatusCollectionKey}}" Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionByTaskStatus" Height="43"  />
+            <Label Content="filter by engineer experience" HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
+            <ComboBox  SelectedValue="{Binding Path=Experience, Mode=TwoWay}"  ItemsSource="{Binding Source={StaticResource TaskComplexityCollectionKey}}" Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionByTaskStatus" Height="43"  />
 
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding  Path=TaskList}" MouseDoubleClick="ShowFormUpdate" >
+        <ListView Margin="5,5,5,5" Grid.Row="1" ItemsSource="{Binding  Path=TaskList}" MouseDoubleClick="ShowFormUpdate" Grid.ColumnSpan="2" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ShowAddForm"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Left" Height="50" Width="100" Click="ShowAddForm" Grid.Column="1" Margin="148,500,0,28" RenderTransformOrigin="0.475,0.016"/>
     </Grid>
 
 </Window>

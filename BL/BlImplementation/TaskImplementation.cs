@@ -9,27 +9,33 @@ internal class TaskImplementation : ITask
 
     public int Create(BO.Task boTask)
     {
-        if ( boTask.Alias == "")
-            throw new Exception("task details are not valid");
+        DO.Task doTask = ConversionToDo(boTask);
+
         try
         {
-            DO.Task doTask = ConversionToDo(boTask);
+            if (_dal.Engineer.Read(boTask.Engineer.Id) == null)
+            {
+                throw new BO.BlDoesNotExistException("Engineer was not found");
+            }
             _dal.Task.Create(doTask);
+
         }
-        catch
+        catch(DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Task number {boTask.Id} exists");
+            throw new BO.BlAlreadyExistsException($"Task number {boTask.Id} exists",ex);
         }
         return boTask.Id;
     }
 
 
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool>? filter = null)
+
+    public IEnumerable<BO.Task> ReadAll(Func<DO.Task?, bool>? filter = null)
     {
-        Func<DO.Task, bool> filter1 = (Func<DO.Task, bool>)filter!;
-        IEnumerable<DO.Task> doAllTasks = _dal.Task.ReadAll(filter1)!;
-        return from doTask in doAllTasks
-               select ConversionToBo(doTask);
+
+        IEnumerable<DO.Task> doAllTasks = _dal.Task.ReadAll(filter)!;
+        IEnumerable<BO.Task> tasks = from task in doAllTasks
+                                     select Read(task.Id);
+        return tasks;
     }
 
     public void Delete(int id)
@@ -61,26 +67,27 @@ internal class TaskImplementation : ITask
     {
         try
         {
+            if (_dal.Engineer.Read(boTask.Engineer.Id) == null)
+            {
+                throw new BO.BlDoesNotExistException("Engineer was not found");
+            }
             _dal.Task.Update(ConversionToDo(boTask));
         }
-        catch
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Task number {boTask.Id} dos't exist");
+            throw new BO.BlDoesNotExistException($"Task number {boTask.Id} dos't exist",ex);
         }
     }
 
-/*    private BO.EngineerInTask? CreateEngineerInTask(int Engineerid)
-    {
-        return new BO.EngineerInTask() { Id = Engineerid, Name = _dal.Engineer.Read(Engineerid)!.Name };
-    }*/
 
     private BO.Status SetStatus(DO.Task doTask)
     {
 
-        return (BO.Status)(doTask.CreatedAtDate is null ? 1
-                            : doTask.StartDate is null ? 2
-                            : doTask.CompleteDate is null ? 3
-                            : 4);
+            return (BO.Status)(doTask.CompleteDate is not null ? 4
+            : doTask.DeadlineDate < DateTime.Now ? 3
+            : doTask.StartDate < DateTime.Now ? 2
+            : 1);
+       
     }
 
     private BO.Task ConversionToBo(DO.Task doTask)

@@ -16,10 +16,7 @@
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-
-
-
+        
         <!--Internal, Upper Grid-->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
 
@@ -27,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="filter by engineer experience " HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Column="0" VerticalAlignment="Center"/>
             <ComboBox  SelectedValue="{Binding Path=Experience, Mode=TwoWay}"  ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Grid.Column="1" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionByEngineerExperience" Height="43"  />
         </Grid>
         <ListView  Margin="5" Grid.Row="1" ItemsSource="{Binding  Path=EngineerList}" MouseDoubleClick="ShowFormUpdate" >

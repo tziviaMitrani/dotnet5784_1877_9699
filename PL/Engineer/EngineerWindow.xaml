@@ -27,21 +27,26 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="300" >
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+
             </Grid.RowDefinitions>
-            <Label Content="ID" HorizontalAlignment="Left" Height="80" Grid.Row="0"/>
-            <Label Content="name" HorizontalAlignment="Left" Height="80"  Grid.Row="1"/>
-            <Label Content="email" HorizontalAlignment="Left" Height="80"  Grid.Row="2"/>
-            <Label Content="level" HorizontalAlignment="Left" Height="80"  Grid.Row="3"/>
-            <Label Content="salary" HorizontalAlignment="Left" Height="80"  Grid.Row="4"/>
+            <Label Content="ID" HorizontalAlignment="Left" Grid.Row="0"/>
+            <Label Content="name" HorizontalAlignment="Left"  Grid.Row="1"/>
+            <Label Content="email" HorizontalAlignment="Left"   Grid.Row="2"/>
+            <Label Content="level" HorizontalAlignment="Left"   Grid.Row="3"/>
+            <Label Content="salary" HorizontalAlignment="Left"   Grid.Row="4"/>
+            <Label Content="task id" HorizontalAlignment="Left"   Grid.Row="5"/>
+
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0" Width="Auto"  VerticalAlignment="Center" Height="300"  >
             <Grid.RowDefinitions >
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -51,6 +56,7 @@
             <TextBox  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="1"  HorizontalAlignment="Stretch" />
             <TextBox Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"  Grid.Row="2" HorizontalAlignment="Stretch" />
             <TextBox  Text="{Binding Cost , Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="4"  HorizontalAlignment="Stretch"/>
+            <TextBox  Text="{Binding Task.Id , Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="5"  HorizontalAlignment="Stretch"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
                       SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Row="3" HorizontalAlignment="Stretch" />
         </Grid>

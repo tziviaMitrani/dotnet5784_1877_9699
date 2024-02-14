@@ -7,16 +7,14 @@
 /// <param name="Name">The name of the engineer</param>
 /// <param name="Email">Email address of the engineer</param>
 /// <param name="Level">Engineer level</param>
-internal class EngineerInList
+public class EngineerInList
 {
-    private DO.EngineerExperience level;
-
-    public EngineerInList(int id, string name, string? email, DO.EngineerExperience level)
+    public EngineerInList(int id, string name, string? email, BO.EngineerExperience level)
     {
         Id = id;
         Name = name;
         Email = email;
-        this.level = level;
+        Level = level;
     }
 
     public int Id { get; init; }

@@ -46,7 +46,7 @@ namespace PL.Engineer
                     Email = "",
                     Level = 0,
                     Cost = 0,
-                    Task = null,
+                    Task = new BO.TaskInEngineer(0,""),
                 };
             else
                 CurrentEngineer = s_bl.Engineer.Read(Id)!;
@@ -71,13 +71,16 @@ namespace PL.Engineer
                     MessageBox.Show("Done", "The change has been made", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-            }catch (Exception ex)
-            {
-                Console.WriteLine(ex);
             }
-      
+            catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch (BO.BlDoesNotExistException ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch (BO.BlNullPropertyException ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch { MessageBox.Show("Oh no, something is wrong"); }
             this.Close();
 
         }
+     
+
     }
+
 }
